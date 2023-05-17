@@ -5,6 +5,7 @@ a {
 
 .proud-container {
     padding: 11rem 0;
+    font-family: 'Roboto', sans-serif;
 }
 
 .proud-h2 {
@@ -12,33 +13,57 @@ a {
     font-weight: 600;
     margin-bottom: 4.2rem !important;
 }
-
+/* cambios */
 .product {
-    outline: 2px solid rgba(0, 0, 0, .205);
-    outline-offset: -2px;
-    transition: all 0.15s ease-in;
-    cursor: pointer;
-}
-
-.product:hover {
-    outline: 2px solid rgba(0, 0, 0, .7);
-}
-
-.product-header img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    position: relative; 
+    overflow: hidden; 
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .product:hover {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    
+  }
+  .product:hover .product-header img {
+    transform: scale(1.1); /* Agregado */
+  }
+  
+  .product-header img {
     width: 100%;
-}
-
-.product-details {
-    font-size: 1.7rem;
-    padding: 1rem;
-}
-
-.item-price {
+    height: auto;
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .product-details h1 {
+    font-size: 1.6rem;
     font-weight: 600;
-    font-size: 2.2rem;
-    margin-top: 1.4rem;
-}
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
 
+  }
+  
+  .product-details p {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .item-price {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #0062ff;
+    font-family: 'Roboto', sans-serif;
+  }
 .products-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

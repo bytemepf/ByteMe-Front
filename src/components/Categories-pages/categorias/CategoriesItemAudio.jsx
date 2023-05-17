@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProducts } from "../../Redux/actions";
+import { getProducts } from "../../../Redux/actions";
 
 function CategoriesItem() {
   const dispatch = useDispatch();
