@@ -34,7 +34,6 @@ function Filters() {
           .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
           .join('&');
         dispatch(getFilters(queryString));
-        
       }
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
     const items = useSelector((state) => state.products);

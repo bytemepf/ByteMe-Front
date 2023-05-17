@@ -9,10 +9,10 @@ function ProudProducts() {
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1)
   const products = useSelector((state) => state.products);
-  const filteredProducts = useSelector((state) => state.filteredProducts);
-  console.log(filteredProducts);
+  //const filteredProducts = useSelector((state) => state.filteredProducts);
+ // console.log(filteredProducts);
   console.log(products)
-  const totalPages = Math.ceil(filteredProducts.length || products.length / itemsPerPage); 
+  const totalPages = Math.ceil( products.length / itemsPerPage); 
 
   const handleClick = (page) => {
     setCurrentPage(page);
@@ -20,9 +20,11 @@ function ProudProducts() {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const items = filteredProducts.length              //si encuentra filtros aplicados
-    ? filteredProducts.slice(startIndex, endIndex) //trae los productos filtrados
-    : products.slice(startIndex, endIndex);          // si no, trae todos los productos
+  
+  const items = products.slice(startIndex, endIndex);
+  // const items = filteredProducts.length              //si encuentra filtros aplicados
+  //   ? filteredProducts.slice(startIndex, endIndex) //trae los productos filtrados
+  //   : products.slice(startIndex, endIndex);          // si no, trae todos los productos
 
 console.log(items);
 

@@ -14,8 +14,8 @@ function ProductItem({items}) {
 
   return (
     <>
-      {filterByName.length !== 0 ? (
-        filterByName.map((item) => (
+      {filterByName.length !== 0 ? 
+        (filterByName.map((item) => (
           <div key={item.id} className="product normal">
             <Link onClick={() => window.top(0, 0)} to={`/product/${item.id}`}>
               <div className="product-header">
@@ -29,7 +29,7 @@ function ProductItem({items}) {
             </Link>
           </div>
         ))
-      ) : (
+        ) : (
         items.map((item) => (
           <div key={item.id} className="product normal">
             <Link onClick={() => window.top(0, 0)} to={`/product/${item.id}`}>
