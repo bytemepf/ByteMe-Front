@@ -28,7 +28,7 @@ export default function Register(){
 
   return(
       <div className='auth'>
-      <h1>Registrate</h1>
+      <h1>Register</h1>
       <form>
         <input  required={true}  type='text' placeholder='name'  name='name' onChange={handleChange}/>
         <input required={true}  type='email' placeholder='email' name='email' onChange={handleChange}/>

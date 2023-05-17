@@ -1,18 +1,21 @@
 import ProductItem from "./ProductItem";
 import Filters from "./Filters/Filters";
 import "./ProudProducts.css";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Redux/actions";
 
 function ProudProducts() {
-
+  const dispatch = useDispatch();
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1)
   const products = useSelector((state) => state.products);
   const filteredProducts = useSelector((state) => state.filteredProducts);
-  console.log(filteredProducts);
-  console.log(products)
   const totalPages = Math.ceil(filteredProducts.length || products.length / itemsPerPage); 
+
+  useEffect(()=>{
+    dispatch(getProducts())
+  }, [dispatch])
 
   const handleClick = (page) => {
     setCurrentPage(page);
@@ -20,9 +23,10 @@ function ProudProducts() {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const items = filteredProducts.length              //si encuentra filtros aplicados
-    ? filteredProducts.slice(startIndex, endIndex) //trae los productos filtrados
-    : products.slice(startIndex, endIndex);          // si no, trae todos los productos
+  const items = filteredProducts.length
+    ? filteredProducts.slice(startIndex, endIndex) 
+    : products.slice(startIndex, endIndex)
+    ;          
 
 console.log(items);
 
