@@ -53,7 +53,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_FILTERS:
             return {
                 ...state,
-                filteredProducts: action.payload.data
+                products: action.payload.data
             }
 
             case LOGIN_USER:
