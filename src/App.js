@@ -51,7 +51,7 @@ const location = useLocation();
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route  exact path="/login" element={<Login/>} />
-        <Route exact path="/search/:name" elemen={<SearchName/>}/>
+        <Route exact path="/search/:name" element={<SearchName/>}/>
 
 
        <Route exact path="categories" element={<Categories />}/> 
