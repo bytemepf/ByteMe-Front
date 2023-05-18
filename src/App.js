@@ -13,9 +13,9 @@ import ProductPage, { CartContext } from "./pages/ProductPage";
 import { useEffect, useState } from "react";
 import SearchName from "./pages/SearchBar/SearchName";
 import RegisterPage from "./pages/Register/Index.js";
- import Login from "./pages/Loding/Index.js"; 
+import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
-
+import User from "./components/user";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -50,6 +50,7 @@ function App() {
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/search/:name" element={<SearchName />} />
+        <Route exact path="/user" element={<User/>} />
 
         <Route exact path="categories" element={<Categories />} />
         <Route exact path="categories/all" element={<All />} />

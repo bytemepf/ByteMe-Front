@@ -56,7 +56,7 @@ export default function Login(){
        <input type='password' placeholder='password' name='password' onChange={handleChange}/>
        <button onClick={handleSubmit}>Login</button>
     
-       <span>Don't you have an acount?<Link to="/register">Register</Link></span>
+       <span>No tienes una cuenta?<Link to="/register">Registro</Link></span>
       </form>
 
       </div>
