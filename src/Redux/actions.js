@@ -9,15 +9,16 @@ export const POST_PRODUCTS = "POST_PRODUCTS";
 export const GET_FILTERS = "GET_FILTERS";
 export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER"
+export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS"
 
 
-export const getProducts = () => {
+export const getProducts = (page, limit) => {
     return async function(dispatch) {
         try {
-        const response = await axios.get(`https://byte-me-backend.onrender.com/api/products?&page=1&limit=100`);
+        const response = await axios.get(`https://byte-me-backend.onrender.com/api/products?&page=${page}&limit=${limit}`);
         return dispatch({
             type: GET_PRODUCTS,
-            payload: response.data.data
+            payload: response.data
         })
     } catch (error) {
         console.log(error);
@@ -35,14 +36,12 @@ export const getProductsById = (id) => {
     }
 }
 
-
-
 export const getProductsByName = (query, page = 1, limit = 10) => {
   return async function (dispatch) {
     try {
-      console.log("Buscando productos con query:", query, "en la página:", page, "con límite de:", limit);
+      //console.log("Buscando productos con query:", query, "en la página:", page, "con límite de:", limit);
       const response = await axios.get(`https://byte-me-backend.onrender.com/api/products/search?query=${query}&page=${page}&limit=${limit}`);
-      console.log("Respuesta de la búsqueda de productos:", response.data);
+      //console.log("Respuesta de la búsqueda de productos:", response.data);
       return dispatch({
         type: GET_PRODUCTS_BY_NAME,
         payload: response.data
@@ -121,4 +120,17 @@ export const getFilters = (queryString) => {
             payload : response.data
         })
     }
+}
+
+export const getAllProducts = () => {
+  return async function(dispatch) {
+      try {
+      const response = await axios.get(`https://byte-me-backend.onrender.com/api/products?limit=1000`);
+      return dispatch({
+          type: GET_ALL_PRODUCTS,
+          payload: response.data.data
+      })
+  } catch (error) {
+      console.log(error);
+  }}
 }

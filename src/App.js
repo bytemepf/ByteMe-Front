@@ -15,6 +15,8 @@ import SearchName from "./pages/SearchBar/SearchName";
 import RegisterPage from "./pages/Register/Index.js";
  import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
+
+
 function App() {
   const [cartItem, setCartItem] = useState([]);
 
@@ -35,46 +37,36 @@ function App() {
     const json = JSON.stringify(cartItem);
     localStorage.setItem("cartItem", json);
   }, [cartItem]);
-const location = useLocation();
-  const hideNavbar = location.pathname === "/";
+
+  const location = useLocation();
+  const hideNavbarRoutes = ["/", "/login", "/register"];
 
   return (
     <CartContext.Provider value={{ cartItem, addToCart, setCartItem }}>
-
-
-      {!hideNavbar && <Navbar />} 
-
-{!hideNavbar && <Navbar />} 
-
+      {hideNavbarRoutes.includes(location.pathname) ? null : <Navbar />}
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/register" element={<RegisterPage />} />
-        <Route  exact path="/login" element={<Login/>} />
-        <Route exact path="/search/:name" element={<SearchName/>}/>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/search/:name" element={<SearchName />} />
 
-
-       <Route exact path="categories" element={<Categories />}/> 
-          <Route exact path="categories/all" element={<All />} />
-          <Route exact path="categories/all/teclados" element={<Teclados />} />
-          <Route exact path="categories/all/ratones" element={<Ratones />} />
-          <Route exact path="categories/all/audio" element={<Audio />} />
-          <Route exact path="categories/all/monitores" element={<Monitores />} />
-          <Route exact path="categories/all/gabinetes" element={<Gabinetes />} />
-          <Route exact path="categories/all/sillas" element={<Sillas />} />
+        <Route exact path="categories" element={<Categories />} />
+        <Route exact path="categories/all" element={<All />} />
+        <Route exact path="categories/all/teclados" element={<Teclados />} />
+        <Route exact path="categories/all/ratones" element={<Ratones />} />
+        <Route exact path="categories/all/audio" element={<Audio />} />
+        <Route exact path="categories/all/monitores" element={<Monitores />} />
+        <Route exact path="categories/all/gabinetes" element={<Gabinetes />} />
+        <Route exact path="categories/all/sillas" element={<Sillas />} />
         <Route exact path="product/:id" element={<ProductPage />} />
-
-
-
-
-
       </Routes>
     </CartContext.Provider>
   );
 }
 
-
 export default App;
+
 
 
 
