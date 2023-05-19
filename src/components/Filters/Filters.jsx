@@ -1,6 +1,6 @@
 import "./Filters.css"
 import {useSelector, useDispatch} from "react-redux"
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef } from "react";
 import {getFilters, getAllProducts} from "../../Redux/actions"
 
 function Filters() {
@@ -30,22 +30,40 @@ function Filters() {
         const property = event.target.name;
         const value = event.target.value
 
-        setFilters({...filters, [property]:value}) 
+        setFilters({...filters, [property]:value});
+
+        handleSubmit();
     };
     
     const handleSubmit = (event) => {
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();}
         
-        const updatedFilters = { ...filters };
-        setFilters(updatedFilters);
+        // const updatedFilters = { ...filters };
+        // setFilters(updatedFilters);
 
         const queryString = Object.keys(filters)
         .filter(key => filters[key])
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
         .join('&');
         dispatch(getFilters(queryString));
+        }
+
+    const handleClearFilter = (filterKey) => {
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          [filterKey]: "", // Limpiar el filtro seleccionado
+        }));
+      
+        const updatedFilters = { ...filters, [filterKey]: "" };
+
+        const queryString = Object.keys(updatedFilters)
+          .filter(key => updatedFilters[key])
+          .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(updatedFilters[key])}`)
+          .join('&');
         
-      }
+        dispatch(getFilters(queryString));
+    };
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
 
     const filterCategories = allProducts.reduce((category, product) => {
@@ -59,24 +77,9 @@ function Filters() {
     const filterBrands = allProducts.reduce((brands, product) => {
         if (!brands.includes(product.brand)) {
             brands.push(product.brand);
-            brands.push(product.brand);
         }
         return brands;
     }, []);
-    
-    
-
-////QUERY/////////////////////////////////////////////////////////////////////////////
-
-// const applyFilters = () => {
-//     const queryString = Object.keys(filters)
-//       .filter(key => filters[key]) // Filtrar solo los valores de filtro que no son vacíos
-//       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
-//       .join('&');
-//     dispatch(getFilters(queryString));
-//   }
-
-
 
 /////DROPDOWN/////////////////////////////////////////////////////////////////////////
     function dropdownFilter() {
@@ -94,10 +97,9 @@ function Filters() {
     //         }
     //     }
     // }
+  
 ////////////////////////////////////////////////////////////////////////////////////
 
-    
-    
     return (
         <>
             <div className="dropdown">
@@ -149,6 +151,24 @@ function Filters() {
                     </div> 
                     <button onClick={handleSubmit}>Aplicar filtros</button>
                 </div>
+            </div>
+            <div className="applied-filters">
+                {Object.entries(filters).map(([key, value]) => {
+                if (value) {
+                    return (
+                    <div key={key} className="filter-pill">
+                        
+                        <button
+                        className="clear-filter"
+                        onClick={() => handleClearFilter(key)}
+                        >
+                        {value} X
+                        </button>
+                    </div>
+                    );
+                }
+                return null;
+                })}
             </div>
         </>
     )
