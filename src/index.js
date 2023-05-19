@@ -13,7 +13,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthContextProvider> 
-        <Auth0Provider domain="byte-me.us.auth0.com" clientId="UHJ6Iyl05KvDYv0cDviIPvaYVoUdbok3" redirectUri="http://localhost:3000/Home">
+      <Auth0Provider domain="dev-qrn5xgn4wniu1a6b.us.auth0.com" clientId="j7RdBXpql7wq2EvsPJWMlzHTmeJaM6uN" redirectUri="http://localhost:3000/Home">
           <App />
         </Auth0Provider>
       </AuthContextProvider> 

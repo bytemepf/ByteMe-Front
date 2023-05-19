@@ -98,7 +98,7 @@ function Navbar() {
                 className="logo-img"
               />
               <div className= {"byteme-title"}>
-                <h1>Byte me</h1>
+                <h1>Byte Me</h1>
               </div>
             </Link>
             <div className="nav-links">
@@ -108,9 +108,15 @@ function Navbar() {
               </Link>
               <Link
                 onClick={() => window.scrollTo(0, 0)}
-                to="/categories/product/19"
+                to="/admin"
               >
-                página del producto
+                Administrador
+              </Link>
+              <Link
+                onClick={() => window.scrollTo(0, 0)}
+                to="/user"
+              >
+                Perfil
               </Link>
               <i
                 data-array-length={cartItem.length}
