@@ -12,10 +12,10 @@ import Sillas from "./components/Categories-pages/Sillas";
 import ProductPage, { CartContext } from "./pages/ProductPage";
 import { useEffect, useState } from "react";
 import SearchName from "./pages/SearchBar/SearchName";
-import RegisterPage from "./pages/Register/Index.js";
 import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
 import User from "./components/user";
+import Admin from "./pages/Admin/Admin";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -47,7 +47,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
-        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path= "/admin" element={ <Admin/> } />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/search/:name" element={<SearchName />} />
         <Route exact path="/user" element={<User/>} />
