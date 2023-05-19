@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getProducts } from "../Redux/actions";
+import { getAllProducts } from "../Redux/actions";
 
 function CategoriesItem() {
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.allProducts);
   const items = Array.isArray(products)? products : [products];
   const dispatch = useDispatch();
 
   console.log(items);
 
   useEffect(()=>{
-    dispatch(getProducts())
+    dispatch(getAllProducts())
   }, [dispatch])
   
   return (

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import"./Search.css"
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getProductsByName } from "../../Redux/actions";
+import { getAllProducts, getProductsByName } from "../../Redux/actions";
 
 export default function SearchBar(){
     const dispatch=useDispatch();
-    const products = useSelector((state) => state.products)
+    const products = useSelector((state) => state.allProducts)
+    
     const[searchQuery, setSearchQuery] = useState("");
 
 
@@ -25,8 +26,8 @@ export default function SearchBar(){
     }
 
     useEffect(()=>{
-      dispatch(getProducts())
-    },[dispatch])
+      dispatch(getAllProducts())
+    }, [dispatch])
     
     return (
         <div>

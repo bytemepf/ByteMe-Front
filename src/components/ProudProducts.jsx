@@ -4,55 +4,59 @@ import "./ProudProducts.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Redux/actions";
 
 function ProudProducts() {
   const dispatch = useDispatch();
-  const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1)
-  const products = useSelector((state) => state.products);
-  const filteredProducts = useSelector((state) => state.filteredProducts);
-  const totalPages = Math.ceil(filteredProducts.length || products.length / itemsPerPage); 
+  const products = useSelector((state) => state.products.data);
+  
+  const [page, setPage] = useState(1) 
+  const [limit, setLimit] = useState(12)
+  const totalPages = useSelector((state) => state.products.totalPages); 
+  const pageNumber = useSelector((state) => state.products.page); //numero de pagina recibida en data
+  
+  const pagination = (page) => {
+    setPage(page)
+  }
+  
+  console.log(products)
 
   useEffect(()=>{
-    dispatch(getProducts())
-  }, [dispatch])
-
-  const handleClick = (page) => {
-    setCurrentPage(page);
-  };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const items = filteredProducts.length
-    ? filteredProducts.slice(startIndex, endIndex) 
-    : products.slice(startIndex, endIndex)
-    ;          
-
-console.log(items);
+    dispatch(getProducts(page, limit))
+  }, [dispatch, page, limit])
 
   return (
     <div className="proud-container">
       <h2 className="container proud-h2">Productos</h2>
       <section>
-          <Filters/>
+          <Filters page={page} limit={limit}/>
       </section>
       <div className="container">
-        <div className="pagination">
+        <ul className="pagination">
           {Array.from({ length: totalPages }, (_, index) => index + 1).map(
             (page) => (
-              <button
-                key={page}
-                className={currentPage === page ? "active" : ""}
-                onClick={() => handleClick(page)}
-              >
-                {page}
-              </button>
+              <li key={page} > 
+                <a className={`${page == pageNumber ? "active" : ''}`}
+                onClick={() => pagination(page)}>{page}</a>
+              </li>
             )
           )}
-        </div>
+        </ul>
         <div className="products-grid">
-          <ProductItem items={items} />
+          <ProductItem products={products} />
         </div>
+        <ul className="pagination">
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (page) => (
+              <li key={page} > 
+                <a className={`${page == pageNumber ? "active" : ''}`}
+                onClick={() => pagination(page)}>{page}</a>
+              </li>
+            )
+          )}
+        </ul>
       </div>
     </div>
   );

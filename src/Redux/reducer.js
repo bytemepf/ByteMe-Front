@@ -6,14 +6,21 @@ import { GET_PRODUCTS,
     GET_FILTERS,
     POST_PRODUCTS,
     LOGIN_USER,
-    LOGOUT_USER } from "./actions"
+    LOGOUT_USER,
+    GET_ALL_PRODUCTS } from "./actions"
 
 let initialState = {
-    products: [],
+    products: {
+        data: [],
+        totalProducts: 0,
+        totalPages: 0,
+        page: 1
+      },
     users: [],
     details: [],
-    filteredProducts: [],
-    filterByName: []
+    filterByName: [],
+    allProducts: [],
+    search: [] 
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,7 +28,13 @@ const rootReducer = (state = initialState, action) => {
         case GET_PRODUCTS:
             return{
                 ...state,
-                products: action.payload
+                products: {
+                    ...state.products,
+                    data: action.payload.data,
+                    totalProducts: action.payload.totalProducts,
+                    totalPages: action.payload.totalPages,
+                    page: action.payload.page
+                  }
             }
             
         case GET_PRODUCTS_BY_ID:
@@ -32,7 +45,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_PRODUCTS_BY_NAME:
             return {
                 ...state,
-                products: action.payload.data
+                search: action.payload.data
             }
         case POST_PRODUCTS:
             return{
@@ -53,7 +66,13 @@ const rootReducer = (state = initialState, action) => {
         case GET_FILTERS:
             return {
                 ...state,
-                products: action.payload.data
+                products: {
+                    ...state.products,
+                    data: action.payload.data,
+                    totalProducts: action.payload.totalProducts,
+                    totalPages: action.payload.totalPages,
+                    page: action.payload.page
+                  }
             }
 
             case LOGIN_USER:
@@ -70,7 +89,13 @@ const rootReducer = (state = initialState, action) => {
                     token: null,
                     user: null
                 }
-    
+            
+            case GET_ALL_PRODUCTS:
+                return{
+                    ...state,
+                    allProducts: action.payload
+                }
+                
 
         default:
             return{
