@@ -4,6 +4,9 @@ import "./ProudProducts.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../Redux/actions";
 
 function ProudProducts() {
   const dispatch = useDispatch();
