@@ -43,12 +43,9 @@ function Filters() {
         .filter(key => filters[key])
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
         .join('&');
-        .filter(key => filters[key])
-        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
-        .join('&');
         dispatch(getFilters(queryString));
-    }
-
+        
+      }
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
 
     const filterCategories = allProducts.reduce((category, product) => {
@@ -67,7 +64,6 @@ function Filters() {
         return brands;
     }, []);
     
-    }, []);
     
 
 ////QUERY/////////////////////////////////////////////////////////////////////////////
@@ -157,10 +153,5 @@ function Filters() {
         </>
     )
 }
-        </>
-    )
-}
 
-
-export default Filters;
 export default Filters;
