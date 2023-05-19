@@ -123,7 +123,7 @@ function Filters() {
                     <div className="container" value={filters.category} name="category" >
                         <h2>Categoría</h2>
                             {filterCategories.map(option => (
-                                <div key={option}>
+                                <div>
                                 <input type="radio" name="category" value={option} id={option} onChange={handleChange}/>
                                 <label>{option}</label>
                                 </div>
@@ -132,7 +132,7 @@ function Filters() {
                     <div className="container" value={filters.brand} name="brand" >    
                         <h2>Marca</h2>
                             {filterBrands.map(option => (
-                                <div key={option}>
+                                <div>
                                 <input type="radio" name="brand" value={option} id={option} onChange={handleChange}/>
                                 <label>{option}</label>
                                 </div>
