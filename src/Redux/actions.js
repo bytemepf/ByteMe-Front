@@ -11,11 +11,14 @@ export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER"
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS"
 
+export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 
 export const getProducts = (page, limit) => {
     return async function(dispatch) {
         try {
-        const response = await axios.get(`https://byte-me-backend.onrender.com/api/products?&page=${page}&limit=${limit}`);
+
+        const response = await axios.get(`${URL_BASE}/products?&page=${page}&limit=${limit}`);
+
         return dispatch({
             type: GET_PRODUCTS,
             payload: response.data
@@ -28,7 +31,7 @@ export const getProducts = (page, limit) => {
 
 export const getProductsById = (id) => {
     return async function(dispatch) {
-        const response = await axios.get(`https://byte-me-backend.onrender.com/api/products/${id}`);
+        const response = await axios.get(`${URL_BASE}/products/${id}`);
         return dispatch({
             type: GET_PRODUCTS_BY_ID,
             payload: response.data
@@ -39,9 +42,11 @@ export const getProductsById = (id) => {
 export const getProductsByName = (query, page = 1, limit = 10) => {
   return async function (dispatch) {
     try {
+
       //console.log("Buscando productos con query:", query, "en la página:", page, "con límite de:", limit);
-      const response = await axios.get(`https://byte-me-backend.onrender.com/api/products/search?query=${query}&page=${page}&limit=${limit}`);
+      const response = await axios.get(`${URL_BASE}/products/search?query=${query}&page=${page}&limit=${limit}`);
       //console.log("Respuesta de la búsqueda de productos:", response.data);
+
       return dispatch({
         type: GET_PRODUCTS_BY_NAME,
         payload: response.data
@@ -55,7 +60,7 @@ export const getProductsByName = (query, page = 1, limit = 10) => {
 
 export const postProducts = () => {
     return async function(dispatch){
-        const response = await axios.post('https://byte-me-backend.onrender.com/api/admin/products');
+        const response = await axios.post(`${URL_BASE}/admin/products`);
         return dispatch({
             type: POST_PRODUCTS,
             payload: response.data
@@ -65,7 +70,7 @@ export const postProducts = () => {
 
 export const getUsers = () => {
     return async function(dispatch){
-        const response = await axios.get('https://byte-me-backend.onrender.com/api/auth/login');
+        const response = await axios.get(`${URL_BASE}/auth/login`);
         return dispatch({
             type: GET_USERS,
             payload: response.data
@@ -78,7 +83,7 @@ export const getUsers = () => {
 export const loginUser = (credentials) => {
   return async function(dispatch) {
     try {
-      const response = await axios.post("https://byte-me-backend.onrender.com/api/auth/login", credentials);
+      const response = await axios.post(`${URL_BASE}/auth/login`, credentials);
       const user = response.data;
       dispatch({
         type: 'LOGIN_USER',
@@ -103,7 +108,7 @@ export const logoutUser = () => {
   
 export const postUsers = () => {
     return async function(dispatch){
-        const response = await axios.post('https://byte-me-backend.onrender.com/api/auth/register');
+        const response = await axios.post(`${URL_BASE}/auth/register`);
         return dispatch({
             type: POST_USERS,
             payload: response.data
@@ -114,7 +119,7 @@ export const postUsers = () => {
 export const getFilters = (queryString) => {
     console.log(queryString);
     return async function(dispatch){
-        const response = await axios.get(`https://byte-me-backend.onrender.com/api/products/filter?${queryString}`);
+        const response = await axios.get(`${URL_BASE}/products/filter?${queryString}`);
         return dispatch({
             type : GET_FILTERS,
             payload : response.data
@@ -125,7 +130,7 @@ export const getFilters = (queryString) => {
 export const getAllProducts = () => {
   return async function(dispatch) {
       try {
-      const response = await axios.get(`https://byte-me-backend.onrender.com/api/products?limit=1000`);
+      const response = await axios.get(`${URL_BASE}/products?limit=1000`);
       return dispatch({
           type: GET_ALL_PRODUCTS,
           payload: response.data.data
