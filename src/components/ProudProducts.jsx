@@ -4,9 +4,6 @@ import "./ProudProducts.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../Redux/actions";
 
 function ProudProducts() {
   const dispatch = useDispatch();
@@ -47,16 +44,6 @@ function ProudProducts() {
         <div className="products-grid">
           <ProductItem products={products} />
         </div>
-        <ul className="pagination">
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-            (page) => (
-              <li key={page} > 
-                <a className={`${page == pageNumber ? "active" : ''}`}
-                onClick={() => pagination(page)}>{page}</a>
-              </li>
-            )
-          )}
-        </ul>
       </div>
     </div>
   );
