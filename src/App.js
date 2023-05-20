@@ -39,7 +39,7 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/register"];
+  const hideNavbarRoutes = ["/", "/login", "/register", "/user"];
 
   return (
     <CartContext.Provider value={{ cartItem, addToCart, setCartItem }}>
