@@ -12,7 +12,6 @@ import Sillas from "./components/Categories-pages/Sillas";
 import ProductPage, { CartContext } from "./pages/ProductPage";
 import { useEffect, useState } from "react";
 import SearchName from "./pages/SearchBar/SearchName";
-import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
 import User from "./components/user";
 import Admin from "./pages/Admin/Admin";
@@ -48,7 +47,6 @@ function App() {
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path= "/admin" element={ <Admin/> } />
-        <Route exact path="/login" element={<Login />} />
         <Route exact path="/search/:name" element={<SearchName />} />
         <Route exact path="/user" element={<User/>} />
 
