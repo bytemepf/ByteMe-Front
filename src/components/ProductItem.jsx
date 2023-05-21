@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import "./ProudProducts.css";
+import "./proudProcuts.css"
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getProducts } from "../Redux/actions";
