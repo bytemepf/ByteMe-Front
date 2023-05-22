@@ -1,11 +1,13 @@
 import "./Filters.css"
 import {useSelector, useDispatch} from "react-redux"
-import React, {useEffect, useState} from "react";
-import {getFilters} from "../../Redux/actions"
+import React, {useState, useEffect} from "react";
+import {getFilters, getAllProducts} from "../../Redux/actions"
 
 function Filters() {
-    const items = useSelector((state) => state.products);
-    const filteredItems = Array.isArray(items)? items : [items];
+    //const items = useSelector((state) => state.products.data);
+    //console.log(items);
+    //const filteredItems = Array.isArray(items)? items : [items];
+    const allProducts = useSelector((state) => state.allProducts);
     const dispatch = useDispatch();
 
     const [filters, setFilters] = useState({
@@ -17,30 +19,57 @@ function Filters() {
         alphabetic: '',
         numeric: '',
         page: 1,
-        limit: 10,
+        limit: 10
     });
+
+    useEffect(()=>{
+        dispatch(getAllProducts())
+    }, [dispatch])
     
+    // const filtersRef = useRef(filters);
+
+    // useEffect(() => {
+    //   if (JSON.stringify(filtersRef.current) !== JSON.stringify(filters)) {
+    //     filtersRef.current = filters;
+    //     handleSubmit();
+    //   }
+    // }, [filters]);
+    
+
 
     const handleChange = (event) => {
         const property = event.target.name;
         const value = event.target.value
-
-        setFilters({...filters, [property]:value}) 
         
+        setFilters({...filters, [property]:value});
     };
     
     const handleSubmit = (event) => {
         event.preventDefault();
+        
+        const updatedFilters = { ...filters };
+        setFilters(updatedFilters);
+
         const queryString = Object.keys(filters)
         .filter(key => filters[key])
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
         .join('&');
         dispatch(getFilters(queryString));
-        
-    }
+        }
+
+/////////////////////////////////////////////////////////////////////////////
+    // const handleClearFilter = (filterKey) => {
+    //     setFilters((prevFilters) => ({
+    //       ...prevFilters,
+    //       [filterKey]: "", // Limpiar el filtro seleccionado
+    //     }));
+      
+    //     const updatedFilters = { ...filters, [filterKey]: "" };
+
+  
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
 
-    const filterCategories = filteredItems.reduce((category, product) => {
+    const filterCategories = allProducts.reduce((category, product) => {
         if (!category.includes(product.category)) {
             category.push(product.category);
         }
@@ -48,44 +77,19 @@ function Filters() {
     }, []);
     
 
-    const filterBrands = filteredItems.reduce((brands, product) => {
+    const filterBrands = allProducts.reduce((brands, product) => {
         if (!brands.includes(product.brand)) {
             brands.push(product.brand);
         }
         return brands;
     }, []);
-    
-
-////QUERY/////////////////////////////////////////////////////////////////////////////
-
-// const applyFilters = () => {
-//     const queryString = Object.keys(filters)
-//       .filter(key => filters[key]) // Filtrar solo los valores de filtro que no son vacíos
-//       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
-//       .join('&');
-//     dispatch(getFilters(queryString));
-//   }
-
 
 /////DROPDOWN/////////////////////////////////////////////////////////////////////////
     function dropdownFilter() {
         document.getElementById("dropdownFilter").classList.toggle("show");
     }
-    // Cierra el dropdown si se hace clic fuera de él
-    // window.onclick = function(event) {
-    //     if (!event.target.matches('.dropbtn')) {
-    //         var dropdowns = document.getElementsByClassName("dropdown-content");
-    //         for (var i = 0; i < dropdowns.length; i++) {
-    //             var openDropdown = dropdowns[i];
-    //             if (openDropdown.classList.contains('show')) {
-    //                 openDropdown.classList.remove('show');
-    //             }
-    //         }
-    //     }
-    // }
 ////////////////////////////////////////////////////////////////////////////////////
 
-    
     return (
         <>
             <div className="dropdown">
@@ -111,7 +115,7 @@ function Filters() {
                     <div className="container" value={filters.category} name="category" >
                         <h2>Categoría</h2>
                             {filterCategories.map(option => (
-                                <div key={option}>
+                                <div>
                                 <input type="radio" name="category" value={option} id={option} onChange={handleChange}/>
                                 <label>{option}</label>
                                 </div>
@@ -120,7 +124,7 @@ function Filters() {
                     <div className="container" value={filters.brand} name="brand" >    
                         <h2>Marca</h2>
                             {filterBrands.map(option => (
-                                <div key={option}>
+                                <div>
                                 <input type="radio" name="brand" value={option} id={option} onChange={handleChange}/>
                                 <label>{option}</label>
                                 </div>
@@ -138,9 +142,9 @@ function Filters() {
                     <button onClick={handleSubmit}>Aplicar filtros</button>
                 </div>
             </div>
+            
         </>
     )
 }
-
 
 export default Filters;

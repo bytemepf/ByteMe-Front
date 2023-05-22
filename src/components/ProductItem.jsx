@@ -2,21 +2,23 @@ import { useDispatch, useSelector } from "react-redux";
 import "./proudProcuts.css"
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { getProducts } from "../Redux/actions";
+import { getProducts, getAllProducts } from "../Redux/actions";
 
-function ProductItem({items}) {
+function ProductItem({ products }) {
   const dispatch = useDispatch();
-  const filterByName = useSelector((state) => state.products)
+  const filterByName = useSelector((state) => state.search)
 
-  useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
-    dispatch(getProducts())
-  }, [dispatch])
+  const filteredItems = Array.isArray(filterByName)? filterByName : [filterByName];
+
+  // useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
+  //   dispatch(getProducts());
+  // }, [dispatch])
 
   return (
     <>
-      {filterByName.length !== 0 ? (
-        filterByName.map((item) => (
-          <div key={item.id} className="product normal">
+  {filteredItems.length !== 0 ? (
+        filteredItems.map((item) => (
+          <div className="product normal">
             <Link onClick={() => window.top(0, 0)} to={`/product/${item.id}`}>
               <div className="product-header">
                 <img src={item.image} alt="product1" />
@@ -30,8 +32,8 @@ function ProductItem({items}) {
           </div>
         ))
       ) : (
-        items.map((item) => (
-          <div key={item.id} className="product normal">
+        products.map((item) => (
+          <div className="product normal">
             <Link onClick={() => window.top(0, 0)} to={`/product/${item.id}`}>
               <div className="product-header">
                 <img src={item.image} alt="product1" />

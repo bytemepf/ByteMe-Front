@@ -12,7 +12,7 @@
     background-color: black;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 100vw;
     z-index: 100;
     
 }
@@ -35,14 +35,17 @@
     align-items: center;
     height: 12rem;
 }
-.logo-container{
-    display: flex
-}
-.logo-img {
+.logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-img {
     width: 8.5rem;
     height: auto;
     cursor: pointer;
-}
+    margin-left: 1rem; /* Ajusta el margen según sea necesario */
+  }
 
 .byteme-title h1{
     color: white;
@@ -53,10 +56,11 @@
 }
 
 .nav-links {
-    font-size: 1.8rem;
+    font-size: 1.6rem; /* Cambia el tamaño según sea necesario */
     text-transform: uppercase;
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
+    margin-right: 3rem; /* Ajusta el margen derecho según sea necesario */
 }
 
 .nav-links a {
@@ -114,19 +118,17 @@
 }
 
 .mobile-links {
-    font-size: 3rem;
+    font-size: 2.5rem; /* Cambia el tamaño según sea necesario */
     text-transform: uppercase;
     display: flex;
     flex-direction: column;
     gap: 2rem;
     justify-content: center;
     align-items: center;
-    top: 44%;
+    top: 50%;
     left: 50%;
-    position: absolute;
     transform: translate(-50%, -50%);
-
-}
+  }
 
 .mobile-links a {
     color: black;
@@ -388,6 +390,8 @@
 .sub-left {
     padding-top: 4rem;
 }
+
+
 
 @media (max-width:600px) {
     .nav-links {
