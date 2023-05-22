@@ -70,7 +70,7 @@ function App() {
         <Route path="/admin/*" element={<AdminLayout />} />
 
         <Route path="/" element={<Landing />} />
-        <Route path="/inicio" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search/:name" element={<SearchName />} />
         <Route path="/user" element={<User/>} />
