@@ -1,0 +1,21 @@
+.Search-Container{
+ background-color: aliceblue
+}
+.Search-Container input{
+    padding: 10px;
+    border: none;
+    outline: none;
+   
+  }
+  
+  .Search-Container button{
+    padding: 10px;
+    border: none;
+    background-color:#4e04a2 ;
+    color: white;
+   
+   
+    
+    cursor: pointer;
+  }
+  
