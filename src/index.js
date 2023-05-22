@@ -17,7 +17,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthContextProvider> 
-      <Auth0Provider domain="dev-qrn5xgn4wniu1a6b.us.auth0.com" clientId="j7RdBXpql7wq2EvsPJWMlzHTmeJaM6uN" redirectUri={redirectUri}>
+      <Auth0Provider domain="dev-qrn5xgn4wniu1a6b.us.auth0.com" clientId="j7RdBXpql7wq2EvsPJWMlzHTmeJaM6uN" authorizationParams={{
+      redirect_uri: window.location.origin
+    }}>
           <App />
         </Auth0Provider>
       </AuthContextProvider> 
