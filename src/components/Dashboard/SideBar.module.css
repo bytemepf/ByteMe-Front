@@ -4,20 +4,16 @@
     top: 0;
     height: 100%;
     max-width: 40vw;
-    background-color: #4D1F61;
+    background-color: #042940;
   }
   
   
   .sidebarcontainer a {
     display: block;
-    padding: 16px;
-    padding-top: 15rem;
+    padding-top: 17rem;
+    padding-bottom: 0%;
     text-decoration: none;
     color: white;
     font-size: 2rem;
   }
   
-  .sidebarcontainer a:hover {
-    background-color: #555;
-    color: white;
-  }
