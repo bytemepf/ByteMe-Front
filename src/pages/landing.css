@@ -1,7 +1,7 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Prompt', sans-serif;
     box-sizing: border-box;
 }
 
@@ -24,7 +24,7 @@ video{
     position:absolute;
     max-width: 100%;
     max-height: 100%;
-    top: 0;
+    top: 30rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,7 +47,7 @@ video{
 
 .bottonL button {
     cursor: pointer;
-    background-color: #E53935;
+    background-color: #B028FF;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -57,7 +57,7 @@ video{
 }
 
 .bottonL button:hover {
-    background-color: #C62828;
+    background-color: #b768e6;
 }
 
 .overlay {

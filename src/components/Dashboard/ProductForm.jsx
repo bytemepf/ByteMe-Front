@@ -96,7 +96,7 @@ const ProductForm = ({isEditMode = true, selectedProductId = "b2226578-80ed-46a0
         .post("https://byte-me-backend.onrender.com/api/admin/products", form)
         .then(showNotify())
         .catch(err => {
-            console.log(err.response.data);
+            console.log(err.response.message);
             alert(err);})
     };
  
