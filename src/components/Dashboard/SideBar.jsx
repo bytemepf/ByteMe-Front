@@ -8,7 +8,7 @@ function SideBar() {
       <div className={style.sidebarcontainer}>
         <Link to="/admin/add">Crear producto</Link>
         <Link to="/admin/list">Administrar productos</Link>
-        <Link to="/home">HOME</Link>
+        <Link to="/home">Página principal</Link>
         {/* Otros enlaces de la sidebar */}
       </div>
     );
