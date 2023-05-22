@@ -10,7 +10,6 @@ function Home() {
       <Hero />
       <ProudProducts />
       <Newsletter />
-      <User></User>
       <Footer />
     </>
   );

@@ -1,6 +1,6 @@
 /* Dropdown Button */
 .dropbtn {
-  background-color: #3498DB;
+  background-color: #30C1FD;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -10,7 +10,7 @@
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
+  background-color: #30C1FD;
 }
 
 /* The container <div> - needed to position the dropdown content */
@@ -45,3 +45,15 @@
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
+
+.clear-filter{
+  display: flex;
+  justify-content: center;
+}
+.filter-pill{
+  display: flex;
+  justify-content: center;
+}
+.applied-filters{
+  justify-content: center;
+}

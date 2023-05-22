@@ -12,7 +12,7 @@ function CartWithItems() {
   useEffect(() => {
     const newTotalPrice = cartItem.reduce((acc, item) => acc + item.price, 0);
     setTotalPrice(newTotalPrice);
-  }, [cartItem]);
+  }, [cartItem, totalPrice]);
 
   return (
     <>
