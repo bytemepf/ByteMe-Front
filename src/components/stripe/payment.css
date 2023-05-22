@@ -1,3 +1,8 @@
+.pay{
+  padding-top:234px;
+}
+
+
 .checkout-form {
     width: 100%;
     max-width: 400px;
@@ -6,6 +11,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+   
   }
   
   .checkout-image {
@@ -34,7 +40,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #28a745;
+    background-color: #4e04a2;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -45,7 +51,11 @@
   .checkout-form__button:hover {
     background-color: #218838;
   }
-  
+  .email{
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(149, 149, 149);
+  }
   .checkout-form__spinner {
     display: inline-block;
     width: 20px;

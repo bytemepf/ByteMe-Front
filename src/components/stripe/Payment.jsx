@@ -93,12 +93,15 @@ const CheckoutForm = () => {
   console.log(!stripe || loading);
 
   return (
-    <form className="checkout-form" onSubmit={handleSubmit}>
+    <div className="pay">
+
+ <form className="checkout-form" onSubmit={handleSubmit}>
       <div className="checkout-image">
         <img src={productImg} alt="Not Image Found" />
       </div>
       <h3 className="checkout-form__price">Precio: {productPrice}$</h3>
      <input
+     classname="email"
         type="email"
         placeholder="Email"
         value={email}
@@ -117,6 +120,10 @@ const CheckoutForm = () => {
         )}
       </button>
     </form>
+
+
+    </div>
+   
   );
 };
 

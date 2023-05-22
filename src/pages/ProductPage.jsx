@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../Redux/actions";
 import { Link } from "react-router-dom";
+
 export const CartContext = createContext();
 
 function ProductPage() {
@@ -56,7 +57,7 @@ function ProductPage() {
       <div className="product-page-div">
         <div className="container">
           <div className="product-div">
-            <h3 className="product-big-name">{item.name}</h3>
+           
             <div className="product-left">
               <div className="big-img">
                 <img src={item.image} alt="product" />
@@ -64,7 +65,9 @@ function ProductPage() {
             </div>
             <div className="product-right">
               <div className="descriptionContainer"> 
+                 <h1 className="descriptionH1">{item.name}</h1>
                 <p className="description">{item.description}</p>
+           
               </div>
               <div className="product-quant">
                 <p>Cantidad</p>
@@ -76,25 +79,14 @@ function ProductPage() {
                 <p className="product-price">{calcPrice(quantity)}</p>
               </div>
               <div className="atc-buy">
-                <button
-                  onClick={() => {
-                    addToCart(item[0]);
-                    showNotify();
-                  }}
-                  className="atc-btn"
-                >
-                  añadir al carrito
-                </button>
             
-                <button  className="buy-btn">
-                <Link  to={{ pathname: "/payment"  }}>
-                  comprar ahora
-                      </Link>
-                
-                  </button>
             
                 <button onClick={() => {addToCart(item); showNotify();}} className="atc-btn">añadir al carrito</button>
-                <button className="buy-btn">comprar ahora</button>
+                <button className="buy-btn">
+                   <Link  to={{ pathname: "/payment"  }}>
+                  comprar ahora
+                      </Link>
+                </button>
               </div>
             </div>
           </div>

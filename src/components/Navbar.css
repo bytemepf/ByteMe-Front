@@ -149,7 +149,7 @@
     top: 0;
     right: 0;
     padding: 3rem 2.5rem 1.5rem 2.5rem;
-    background-color: rgb(144, 140, 146);
+    background-color: rgb(255, 255, 255);
     height: 100vh;
     width: 50rem;
     transition: all 0.4s ease;
@@ -280,7 +280,7 @@
     font-size: 2rem;
     width: 3rem;
     height: 3.5rem;
-    background-color: black;
+    background-color: #4e04a2;
     color: white;
     cursor: pointer;
 }
