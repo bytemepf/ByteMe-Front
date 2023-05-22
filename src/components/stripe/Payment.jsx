@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import "./payment.css";
 import Swal from 'sweetalert2';
 import { loadStripe } from "@stripe/stripe-js";
+
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
@@ -15,7 +16,7 @@ const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
- /*  const [email, setEmail] = useState(""); */
+  const [email, setEmail] = useState(""); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,19 +40,26 @@ const CheckoutForm = () => {
           title: ('Numero invalido')
         });
         setLoading(false);
+
+        
       }
+      Swal.fire({
+        icon: 'warning',
+        title: "Faltan datos de la tarjeta"
+      });
+      setLoading(false);
     }
     if (!error) {
       console.log('no error')
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post("https://localhost:8080/api/checkout" , {
-          tokenId: id,
+        const { data } = await axios.post("http://localhost:8080/api/checkout" , {
+          id,
           quantity: 1,
           price: productPrice,
              
           
-        });
+        } , { credentials: 'include' });
      
         Swal.fire({
           icon: 'success',
@@ -65,21 +73,21 @@ const CheckoutForm = () => {
         Swal.fire({
           icon: 'error',
           title: 'Algo ha salido mal...',
-          text: error.message,
+          text: error.response.data,
         });
-        console.log(error);
+        console.log(error+"este es el error");
       }
       setLoading(false);
     }
 
-  /*   if (!email) {
+    if (!email) {
       Swal.fire({
         title: 'Atención',
         text: 'Por favor, ingresa tu correo electrónico.',
         icon: 'warning',
       });
       return;
-    } */
+    } 
   };
 
   console.log(!stripe || loading);
@@ -90,12 +98,12 @@ const CheckoutForm = () => {
         <img src={productImg} alt="Not Image Found" />
       </div>
       <h3 className="checkout-form__price">Precio: {productPrice}$</h3>
-    {/*   <input
+     <input
         type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-      /> */}
+      /> 
       <div className="checkout-form__card-element">
         <CardElement />
       </div>
