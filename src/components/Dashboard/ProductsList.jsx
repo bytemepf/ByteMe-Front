@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 import Filters from "../Filters/Filters";
-//import "./ProudProducts.css";
+import styles from "./ProductsList.module.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../Redux/actions";
@@ -33,7 +33,7 @@ const ProductsList = ({handleEdit}) => {
     // };
     
     return (
-      <div className="proud-container">
+      <div className={styles.proudContainer}>
         <h2 className="container proud-h2">Productos</h2>
         <section>
             <Filters page={page} limit={limit}/>
