@@ -63,8 +63,8 @@ function ProductPage() {
               </div>
             </div>
             <div className="product-right">
-              <div> 
-                <p>{item.description}</p>
+              <div className="descriptionContainer"> 
+                <p className="description">{item.description}</p>
               </div>
               <div className="product-quant">
                 <p>Cantidad</p>
@@ -76,15 +76,7 @@ function ProductPage() {
                 <p className="product-price">{calcPrice(quantity)}</p>
               </div>
               <div className="atc-buy">
-                <button
-                  onClick={() => {
-                    addToCart(item[0]);
-                    showNotify();
-                  }}
-                  className="atc-btn"
-                >
-                  añadir al carrito
-                </button>
+                <button onClick={() => {addToCart(item); showNotify();}} className="atc-btn">añadir al carrito</button>
                 <button className="buy-btn">comprar ahora</button>
               </div>
             </div>

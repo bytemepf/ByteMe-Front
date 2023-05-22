@@ -1,0 +1,23 @@
+.sidebarcontainer{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    background-color: #f1f1f1; /* Ajusta el color de fondo según tus preferencias */
+  }
+
+  
+  .sidebarcontainer a {
+    display: block;
+    padding: 16px;
+    padding-top: 15rem;
+    text-decoration: none;
+    color: black;
+    font-size: 2rem;
+  }
+  
+  .sidebarcontainer a:hover {
+    background-color: #555;
+    color: white;
+  }

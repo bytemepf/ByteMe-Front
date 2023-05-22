@@ -14,8 +14,10 @@ import { useEffect, useState } from "react";
 import SearchName from "./pages/SearchBar/SearchName";
 import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
-import User from "./components/user";
-import Admin from "./pages/Admin/Admin";
+import User from "./components/user"
+import ProductForm from "./components/Dashboard/ProductForm";
+import ProductsList from "./components/Dashboard/ProductsList";
+import SideBar from "./components/Dashboard/SideBar";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -39,15 +41,36 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/register", "/user"];
+  const hideNavbarRoutes = ["/", "/login", "/register", "/user", "/admin", "/admin/add", "/admin/list"];
+
+  function AdminLayout() {
+    const [selectedProductId, setSelectedProductId] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
+
+    const handleEdit = (itemId) => {
+      setSelectedProductId(itemId);
+      setIsEditMode(true);
+  };
+
+    return (
+      <div className="admin-layout">
+        <SideBar />
+        <Routes>
+          <Route exact path="/add" element={<ProductForm isEditMode={isEditMode} selectedProductId={selectedProductId}/>} />
+          <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit}/>} />
+        </Routes>
+      </div>
+    );
+  }
 
   return (
     <CartContext.Provider value={{ cartItem, addToCart, setCartItem }}>
       {hideNavbarRoutes.includes(location.pathname) ? null : <Navbar />}
       <Routes>
+        <Route path="/admin/*" element={<AdminLayout />} />
+
         <Route exact path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
-        <Route exact path= "/admin" element={ <Admin/> } />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/search/:name" element={<SearchName />} />
         <Route exact path="/user" element={<User/>} />

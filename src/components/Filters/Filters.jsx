@@ -1,6 +1,6 @@
 import "./Filters.css"
 import {useSelector, useDispatch} from "react-redux"
-import React, {useState, useEffect, useRef } from "react";
+import React, {useState, useEffect} from "react";
 import {getFilters, getAllProducts} from "../../Redux/actions"
 
 function Filters() {
@@ -26,21 +26,29 @@ function Filters() {
         dispatch(getAllProducts())
     }, [dispatch])
     
+    // const filtersRef = useRef(filters);
+
+    // useEffect(() => {
+    //   if (JSON.stringify(filtersRef.current) !== JSON.stringify(filters)) {
+    //     filtersRef.current = filters;
+    //     handleSubmit();
+    //   }
+    // }, [filters]);
+    
+
+
     const handleChange = (event) => {
         const property = event.target.name;
         const value = event.target.value
-
+        
         setFilters({...filters, [property]:value});
-
-        handleSubmit();
     };
     
     const handleSubmit = (event) => {
-        if (event) {
-            event.preventDefault();}
+        event.preventDefault();
         
-        // const updatedFilters = { ...filters };
-        // setFilters(updatedFilters);
+        const updatedFilters = { ...filters };
+        setFilters(updatedFilters);
 
         const queryString = Object.keys(filters)
         .filter(key => filters[key])
@@ -49,21 +57,16 @@ function Filters() {
         dispatch(getFilters(queryString));
         }
 
-    const handleClearFilter = (filterKey) => {
-        setFilters((prevFilters) => ({
-          ...prevFilters,
-          [filterKey]: "", // Limpiar el filtro seleccionado
-        }));
+/////////////////////////////////////////////////////////////////////////////
+    // const handleClearFilter = (filterKey) => {
+    //     setFilters((prevFilters) => ({
+    //       ...prevFilters,
+    //       [filterKey]: "", // Limpiar el filtro seleccionado
+    //     }));
       
-        const updatedFilters = { ...filters, [filterKey]: "" };
+    //     const updatedFilters = { ...filters, [filterKey]: "" };
 
-        const queryString = Object.keys(updatedFilters)
-          .filter(key => updatedFilters[key])
-          .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(updatedFilters[key])}`)
-          .join('&');
-        
-        dispatch(getFilters(queryString));
-    };
+  
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
 
     const filterCategories = allProducts.reduce((category, product) => {
@@ -85,19 +88,6 @@ function Filters() {
     function dropdownFilter() {
         document.getElementById("dropdownFilter").classList.toggle("show");
     }
-    // Cierra el dropdown si se hace clic fuera de él
-    // window.onclick = function(event) {
-    //     if (!event.target.matches('.dropbtn')) {
-    //         var dropdowns = document.getElementsByClassName("dropdown-content");
-    //         for (var i = 0; i < dropdowns.length; i++) {
-    //             var openDropdown = dropdowns[i];
-    //             if (openDropdown.classList.contains('show')) {
-    //                 openDropdown.classList.remove('show');
-    //             }
-    //         }
-    //     }
-    // }
-  
 ////////////////////////////////////////////////////////////////////////////////////
 
     return (
@@ -152,24 +142,7 @@ function Filters() {
                     <button onClick={handleSubmit}>Aplicar filtros</button>
                 </div>
             </div>
-            <div className="applied-filters">
-                {Object.entries(filters).map(([key, value]) => {
-                if (value) {
-                    return (
-                    <div key={key} className="filter-pill">
-                        
-                        <button
-                        className="clear-filter"
-                        onClick={() => handleClearFilter(key)}
-                        >
-                        {value} X
-                        </button>
-                    </div>
-                    );
-                }
-                return null;
-                })}
-            </div>
+            
         </>
     )
 }
