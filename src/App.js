@@ -70,7 +70,7 @@ function App() {
         <Route path="/admin/*" element={<AdminLayout />} />
 
         <Route exact path="/" element={<Landing />} />
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/inicio" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/search/:name" element={<SearchName />} />
         <Route exact path="/user" element={<User/>} />
