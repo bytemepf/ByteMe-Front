@@ -1,6 +1,5 @@
 import Video from '../assets/videoLanding.mp4';
 import "./landing.css";
-import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function LandingPage(){
@@ -16,7 +15,7 @@ export default function LandingPage(){
                 <h2>Lideres en la comercialización de periféricos y accesorios informáticos en toda Latinoamérica </h2>
                 <h2>Más de 500.000 mil clientes nos han elegido</h2>
                 <div className='bottonL'>
-                    <button onClick={loginWithRedirect}>Login</button>
+                    <button onClick={() => loginWithRedirect()}>Login</button>
                 </div>
             </div>
         </div>
