@@ -83,12 +83,13 @@
 }
 
 .mobile-nav-full {
-    background-color: #F3F3F3;
+    background-color: #4D1F61;
     z-index: 200;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    padding-right: 0;
+    /* top: 0; */
+    /* left: 0; */
+    width: 100vw;
     height: 100%;
 }
 
@@ -109,21 +110,25 @@
 }
 
 .mobile-links {
-    font-size: 2.5rem;
-    text-transform: uppercase;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     justify-content: center;
     align-items: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    max-width: 80vw;
+    font-size: 2rem;
+    text-transform: uppercase;
+    gap: 2rem;
+    padding-left: 40%;
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
 }
 
 .mobile-links a {
-    color: black;
+    color: white;
     text-decoration: none;
+    cursor: pointer;
+    margin-top: 3rem;
 }
 
 .mobile-links a:hover {

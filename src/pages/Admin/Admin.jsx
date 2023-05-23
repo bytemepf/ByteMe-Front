@@ -4,14 +4,6 @@ import "./Admin.css"
 
 
 const Admin = () => {
-    // const [isEditMode, setIsEditMode] = useState(false);
-    // const [selectedProductId, setSelectedProductId] = useState(null);
-    
-    //   const handleEdit = (productId) => {
-    //     setIsEditMode(true);
-    //     setSelectedProductId(productId);
-    //   };
-
     return (
         <div className="admin">
             <Dashboard/>

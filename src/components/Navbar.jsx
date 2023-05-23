@@ -6,12 +6,15 @@ import CartWithItems from "./CartWithItems";
 import EmptyCart from "./EmptyCart";
 import { CartContext } from "../pages/ProductPage";
 import SearchBar from "../pages/SearchBar/SearchBar";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
   const [mobileNav, setMobileNav] = useState(false);
   const [cart, setCart] = useState(false);
+  const { user } = useAuth0();
 
   const { cartItem } = useContext(CartContext);
 
@@ -46,20 +49,18 @@ function Navbar() {
           className="fa-sharp fa-solid fa-xmark"
         ></i>
         <div className="mobile-links">
-       
+
           <Link onClick={() => setMobileNav(!mobileNav)} to="/categories/all">
-          categorías
+          Categorías
           </Link>
-          <Link onClick={() => setMobileNav(!mobileNav)} to="/categories/lamps">
-          lamparas
+          <Link onClick={() => setMobileNav(!mobileNav)} to="/user">
+          Perfil
           </Link>
-          <Link
-            onClick={() => setMobileNav(!mobileNav)}
-            to="/categories/product/19"
-          >
-            página del producto
-          </Link>
-     
+          {user && user.nickname === "bytemepf" && (
+                <Link onClick={() => window.scrollTo(0, 0)} to="/admin">
+                  Administrador
+                </Link>
+            )}
         </div>
       </div>
 
@@ -73,7 +74,7 @@ function Navbar() {
       <div className={`cart-div ${cart ? "open-cart" : "closed-cart"}`}>
         <div className="cart-title-btn">
           <h2 className="cart-full-h2">
-          tu carrito de la compra ({cartItem.length})
+          Carrito de compra ({cartItem.length})
           </h2>
           <i onClick={openCart} className="fa-sharp fa-solid fa-xmark"></i>
         </div>
@@ -106,12 +107,11 @@ function Navbar() {
               <Link onClick={() => window.scrollTo(0, 0)} to="/categories/all">
               categorías
               </Link>
-              <Link
-                onClick={() => window.scrollTo(0, 0)}
-                to="/admin"
-              >
-                Administrador
-              </Link>
+              {user && user.nickname === "bytemepf" && (
+                <Link onClick={() => window.scrollTo(0, 0)} to="/admin">
+                  Administrador
+                </Link>
+              )}
               <Link
                 onClick={() => window.scrollTo(0, 0)}
                 to="/user"
