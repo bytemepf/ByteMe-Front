@@ -90,7 +90,7 @@ function Navbar() {
       <nav className="navbar">
         <div className="container">
           <div className={`nav-container ${sticky ? "cont-sticky" : ""}`}>
-            <Link to="/Home" className="logo-container">
+            <Link to="/home" className="logo-container">
               <img
                 onClick={scrollToTop}
                 src={logo}

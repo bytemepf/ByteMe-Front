@@ -3,21 +3,17 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 200px; /* Ajusta el ancho según tus necesidades */
-    background-color: #f1f1f1; /* Ajusta el color de fondo según tus preferencias */
+    max-width: 40vw;
+    background-color: #042940;
   }
-
+  
   
   .sidebarcontainer a {
     display: block;
-    padding: 16px;
-    padding-top: 15rem;
+    padding-top: 17rem;
+    padding-bottom: 0%;
     text-decoration: none;
-    color: black;
+    color: white;
     font-size: 2rem;
   }
   
-  .sidebarcontainer a:hover {
-    background-color: #555;
-    color: white;
-  }

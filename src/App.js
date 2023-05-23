@@ -69,21 +69,21 @@ function App() {
       <Routes>
         <Route path="/admin/*" element={<AdminLayout />} />
 
-        <Route exact path="/" element={<Landing />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/search/:name" element={<SearchName />} />
-        <Route exact path="/user" element={<User/>} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/search/:name" element={<SearchName />} />
+        <Route path="/user" element={<User/>} />
 
-        <Route exact path="categories" element={<Categories />} />
-        <Route exact path="categories/all" element={<All />} />
-        <Route exact path="categories/all/teclados" element={<Teclados />} />
-        <Route exact path="categories/all/ratones" element={<Ratones />} />
-        <Route exact path="categories/all/audio" element={<Audio />} />
-        <Route exact path="categories/all/monitores" element={<Monitores />} />
-        <Route exact path="categories/all/gabinetes" element={<Gabinetes />} />
-        <Route exact path="categories/all/sillas" element={<Sillas />} />
-        <Route exact path="product/:id" element={<ProductPage />} />
+        <Route path="categories" element={<Categories />} />
+        <Route path="categories/all" element={<All />} />
+        <Route path="categories/all/teclados" element={<Teclados />} />
+        <Route path="categories/all/ratones" element={<Ratones />} />
+        <Route path="categories/all/audio" element={<Audio />} />
+        <Route path="categories/all/monitores" element={<Monitores />} />
+        <Route path="categories/all/gabinetes" element={<Gabinetes />} />
+        <Route path="categories/all/sillas" element={<Sillas />} />
+        <Route path="product/:id" element={<ProductPage />} />
       </Routes>
     </CartContext.Provider>
   );
