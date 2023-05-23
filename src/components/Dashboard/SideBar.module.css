@@ -1,16 +1,15 @@
 .sidebarcontainer{
     position: fixed;
-    left: 0;
-    top: 0;
     height: 100%;
-    max-width: 40vw;
+    max-width: 30vw;
     background-color: #042940;
+    top: 0;
   }
   
   
   .sidebarcontainer a {
     display: block;
-    padding-top: 17rem;
+    padding-top: 12rem;
     padding-bottom: 0%;
     text-decoration: none;
     color: white;
