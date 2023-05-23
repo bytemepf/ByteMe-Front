@@ -10,6 +10,8 @@ export const User = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useDispatch();
 
+  console.log(user);
+
   useEffect(() => {
     if (isAuthenticated && user) {
       dispatch(loginUser(user));
