@@ -11,7 +11,6 @@ import Gabinetes from "./components/Categories-pages/Gabinetes";
 import Sillas from "./components/Categories-pages/Sillas";
 import ProductPage, { CartContext } from "./pages/ProductPage";
 import { useEffect, useState } from "react";
-import SearchName from "./pages/SearchBar/SearchName";
 import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
 import User from "./components/user"
@@ -72,7 +71,6 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/search/:name" element={<SearchName />} />
         <Route path="/user" element={<User/>} />
 
         <Route path="categories" element={<Categories />} />
