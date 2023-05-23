@@ -42,11 +42,9 @@ export const getProductsById = (id) => {
 export const getProductsByName = (query, page = 1, limit = 10) => {
   return async function (dispatch) {
     try {
-
       //console.log("Buscando productos con query:", query, "en la página:", page, "con límite de:", limit);
       const response = await axios.get(`${URL_BASE}/products/search?query=${query}&page=${page}&limit=${limit}`);
       //console.log("Respuesta de la búsqueda de productos:", response.data);
-
       return dispatch({
         type: GET_PRODUCTS_BY_NAME,
         payload: response.data
@@ -56,7 +54,6 @@ export const getProductsByName = (query, page = 1, limit = 10) => {
     }
   }
 }
-
 
 export const postProducts = () => {
     return async function(dispatch){
@@ -77,8 +74,6 @@ export const getUsers = () => {
         })
     }
 }
-
-
 
 export const loginUser = (credentials) => {
   return async function(dispatch) {
@@ -105,7 +100,6 @@ export const logoutUser = () => {
   }
 }
 
-  
 export const postUsers = () => {
     return async function(dispatch){
         const response = await axios.post(`${URL_BASE}/auth/register`);
