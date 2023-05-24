@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
  */import 'react-responsive-carousel/lib/styles/carousel.min.css';
 /* import ProductItem from '../components/ProductItem'; */
 export default function LandingPage(){
-    const products = useSelector((state) => state.products.data);
+  /*   const products = useSelector((state) => state.products.data); */
     const {loginWithRedirect} = useAuth0();
     
     return(
