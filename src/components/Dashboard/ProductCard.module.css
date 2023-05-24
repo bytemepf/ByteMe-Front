@@ -3,6 +3,7 @@
     outline-offset: -2px;
     transition: all 0.15s ease-in;
     cursor: pointer;
+    margin-left: 25%;
 }
 
 .product:hover {
@@ -10,13 +11,13 @@
 }
 
 .product-header img {
-    width: 100%;
+    max-width: 100%; /* Modificación: Cambiar "width" por "max-width" */
+    height: auto; /* Agregar: Para mantener la proporción */
 }
 
 .product-details {
     font-size: 1.7rem;
     padding: 1rem;
-    
 }
 
 .item-price {
@@ -27,7 +28,7 @@
 
 .products-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Modificación: Usar "repeat(auto-fit, minmax(200px, 1fr))" */
     gap: 2rem;
 }
 
@@ -35,23 +36,19 @@
 
 @media (max-width:750px) {
     .products-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Modificación: Usar el mismo valor que en el estilo base */
     }
 }
 
 @media (max-width:600px) {
     .products-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Modificación: Usar el mismo valor que en el estilo base */
     }
 }
 
 @media (max-width:430px) {
     .products-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Modificación: Usar el mismo valor que en el estilo base */
     }
 }
 
@@ -72,13 +69,13 @@
     text-align: center;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 2rem;
-  }
+}
 
 .pagination a.active {
     background-color: #B028FF;
     color: black;
-  }
-  
-  .pagination a:hover:not(.active) {background-color: rgba(0, 0, 0, 0.20);}
+}
 
- 
+.pagination a:hover:not(.active) {
+    background-color: rgba(0, 0, 0, 0.20);
+}

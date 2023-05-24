@@ -1,9 +1,13 @@
 /* Dropdown Button */
 .dropbtn {
-  background-color: #30C1FD;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #042940;
   color: white;
-  padding: 16px;
-  font-size: 16px;
+  max-width: 50vw;
+  padding: 5%;
+  font-size: 1.5em;
   border: none;
   cursor: pointer;
 }

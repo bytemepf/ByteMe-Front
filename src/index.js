@@ -9,7 +9,8 @@ import { AuthContextProvider } from "../src/context/authContext.jsx";
 import { Auth0Provider} from '@auth0/auth0-react'
 
 
-//redirectUri={`${process.env.REACT_APP_URL_FRONT}`}
+const redirectUri=`${process.env.REACT_APP_URL_FRONT}`
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,7 +18,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <AuthContextProvider> 
-      <Auth0Provider domain="dev-qrn5xgn4wniu1a6b.us.auth0.com" clientId="j7RdBXpql7wq2EvsPJWMlzHTmeJaM6uN" redirectUri="http://localhost:3000/Home">
+      <Auth0Provider domain="dev-qrn5xgn4wniu1a6b.us.auth0.com" clientId="j7RdBXpql7wq2EvsPJWMlzHTmeJaM6uN" authorizationParams={{
+      redirect_uri: redirectUri
+    }}>
           <App />
         </Auth0Provider>
       </AuthContextProvider> 

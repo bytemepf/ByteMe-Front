@@ -1,5 +1,5 @@
 .body{
-  background-color: #4D1F61;
+  background-color: #042940;
 }
 
 .containeruser {
@@ -21,7 +21,7 @@
     padding: 5%;
     border: 1px solid black;
     border-radius: 15px;
-    font-size: 3em;
+    font-size: 2em;
     background-color: white;
   }
   
