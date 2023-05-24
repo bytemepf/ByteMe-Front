@@ -5,6 +5,7 @@ import { useDispatch} from "react-redux";
 import axios from "axios";
 
 const numbersRegExp = /^[0-9]+$/
+const urlRegExp = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
 
 const validate = (form) => {
     let errors = {}
@@ -17,7 +18,7 @@ const validate = (form) => {
         if(!form.brand) {
             errors.brand = "*Debe ingresar una marca"
         }
-        if(!form.price) {
+        if(form.price === null) {
             errors.price = "*Debe ingresar un precio"
         }
         else if(!numbersRegExp.test(form.price)){
@@ -26,7 +27,7 @@ const validate = (form) => {
         if(!form.category) {
             errors.category = "*Debe ingresar una categoría"
         }
-        if(!form.quantity) {
+        if(form.quantity  === null) {
             errors.quantity = "*Debe ingresar cantidad"
         }
         else if(!numbersRegExp.test(form.quantity)){
@@ -39,21 +40,21 @@ const validate = (form) => {
 }
 
 
-const ProductForm = ({isEditMode = true, selectedProductId = "b2226578-80ed-46a0-bbe4-fd3dbb6bbae1"}) => {
+const ProductForm = ({isEditMode, selectedProductId}) => {
     const [button, setButton] = useState(true);
     const [form, setForm] = useState({
-        id: "",
+       
         name:"",
         description:"",
         brand:"",
-        price:"",
+        price: null,
         category:"",
-        quantity: "",
+        quantity: null,
         image: ""
     });
 
     const [errors, setErrors] = useState({
-        id: "",
+       
         name:"",
         description:"",
         brand:"",
@@ -63,20 +64,13 @@ const ProductForm = ({isEditMode = true, selectedProductId = "b2226578-80ed-46a0
         image: ""
     });
    
-    const handleChange = (e) => {
-        const property = e.target.name;
-        const value = e.target.value
-        
-        validate({...form, [property]:value})
-        setForm({...form, [property]:value})   
-    };
-
+    
     useEffect(()=>{
         setErrors(validate(form));
     }, [form]); 
-
+    
     useEffect(()=>{
-        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price.length > 0 && form.category.length > 0 && form.quantity.length > 0) setButton(false) 
+        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price  !== null && form.category.length > 0 && form.quantity  !== null) setButton(false) 
         else setButton(true)
     }, [form, setButton]);
     
@@ -84,80 +78,98 @@ const ProductForm = ({isEditMode = true, selectedProductId = "b2226578-80ed-46a0
     const showNotify = () => {
         setNotify(!notify);
     };
-
+    
     const [modify, setModify] = useState(false);
     const showModify = () => {
         setModify(!notify);
     };
 
+    const handleChange = (e) => {
+        const property = e.target.name;
+        let value = e.target.value; // Usar let en lugar de const
+        
+        if (property === "price" || property === "quantity") {
+            // Convertir el valor a número
+            value = parseInt(value);
+        }
+    
+        const updatedForm = { ...form, [property]: value };
+        const updatedErrors = validate(updatedForm);
+    
+        setForm(updatedForm);
+        setErrors(updatedErrors);
+    };
+
+    const urlApi = `${process.env.REACT_APP_URL_BACK}`;
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-        .post("https://byte-me-backend.onrender.com/api/admin/products", form)
+        .post(`${urlApi}/admin/products`, form)
         .then(showNotify())
         .catch(err => {
-            console.log(err.response.data);
+            console.log(err.response.message);
             alert(err);})
     };
  
-    const handleModify = (e, selectedProductId) => {
-            e.preventDefault();
-        // Obtener los datos del producto actual del servidor
-        axios
-          .get(`https://byte-me-backend.onrender.com/api/products/${selectedProductId}`)
-          .then((response) => {
-            const productData = response.data; // Datos del producto obtenidos del servidor
+    // const handleModify = (e, selectedProductId) => {
+    //         e.preventDefault();
+    //     // Obtener los datos del producto actual del servidor
+    //     axios
+    //       .get(`${urlApi}/products/${selectedProductId}`)
+    //       .then((response) => {
+    //         const productData = response.data; // Datos del producto obtenidos del servidor
       
-            // Preenlazar el formulario con los datos del producto
-            setForm({
-                id: productData.id,
-              name: productData.name,
-              description: productData.description,
-              brand: productData.brand,
-              price: productData.price,
-              category: productData.category,
-              quantity: productData.quantity,
-              image: productData.image,
-            });
+    //         // Preenlazar el formulario con los datos del producto
+    //         setForm({
+    //             id: productData.id,
+    //           name: productData.name,
+    //           description: productData.description,
+    //           brand: productData.brand,
+    //           price: productData.price,
+    //           category: productData.category,
+    //           quantity: productData.quantity,
+    //           image: productData.image,
+    //         });
       
-            // Realizar las acciones necesarias después de prellenar el formulario
-            console.log("Producto cargado para modificar:", productData);
-            // Otras acciones necesarias, como mostrar una notificación, habilitar el botón de modificar, etc.
-          })
-          .catch((error) => {
-            console.log("Error al obtener los datos del producto:", error.response.data);
-            // Manejar el error, mostrar una notificación de error, etc.
-          });
-      };
+    //         // Realizar las acciones necesarias después de prellenar el formulario
+    //         console.log("Producto cargado para modificar:", productData);
+    //         // Otras acciones necesarias, como mostrar una notificación, habilitar el botón de modificar, etc.
+    //       })
+    //       .catch((error) => {
+    //         console.log("Error al obtener los datos del producto:", error.response.data);
+    //         // Manejar el error, mostrar una notificación de error, etc.
+    //       });
+    //   };
      
-      if (isEditMode) {
-        handleModify(selectedProductId)
-      }
+    //   if (isEditMode) {
+    //     handleModify(selectedProductId)
+    //   }
 
-    const submitModify = (e) => {
-        e.preventDefault();
-        axios
-          .put(`https://byte-me-backend.onrender.com/api/admin/products/${form.id}`, form)
-          .then((response) => {
-            console.log("Producto modificado:", response.data);
-            // Restablecer el estado del formulario
-            setForm({
-              name: "",
-              description: "",
-              brand: "",
-              price: "",
-              category: "",
-              quantity: "",
-              image: "",
-            });
-            // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
-            showModify()
-          })
-          .catch((error) => {
-            console.log("Error al modificar el producto:", error.response.data);
-            // Manejar el error, mostrar una notificación de error, etc.
-          });
-      };
+    // const submitModify = (e) => {
+    //     e.preventDefault();
+    //     axios
+    //       .put(`${urlApi}/admin/products/${form.id}`, form)
+    //       .then((response) => {
+    //         console.log("Producto modificado:", response.data);
+    //         // Restablecer el estado del formulario
+    //         setForm({
+    //           name: "",
+    //           description: "",
+    //           brand: "",
+    //           price: "",
+    //           category: "",
+    //           quantity: "",
+    //           image: "",
+    //         });
+    //         // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
+    //         showModify()
+    //       })
+    //       .catch((error) => {
+    //         console.log("Error al modificar el producto:", error.response.data);
+    //         // Manejar el error, mostrar una notificación de error, etc.
+    //       });
+    //   };
 
 const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
 
@@ -174,7 +186,7 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
             <p>El producto ha sido modificado exitosamente &nbsp; ✅</p>
         </div>
         <div className={style.container}>
-            <form className={style.productForm}> 
+            <form className={style.productForm} onSubmit={handleSubmit}> 
             <h1>Crear producto</h1>
                 {/* id */}
                 <input type="hidden" name="id" value={form.id} />
@@ -219,16 +231,15 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
                 {/* Image */}
                 <div  name="image" value={form.image}>
                 <label>Seleccionar imagen:</label>
-                    <input type="file" id="image" name="image" onChange={handleChange}/>
-                    <button type="submit">Seleccionar</button>
+                    <input className={style.input_name} type="text" value={form.image} name="image" placeholder="Imagen..." onChange={handleChange}/>
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}
                 {isEditMode ? (
-                    <button className={style.button_add} disabled={button} type="submit" onClick={submitModify}>
+                    <button className={style.button_add} disabled={button} type="submit" >
                          MODIFICAR</button>
                     ) : (
-                    <button className={style.button_add} disabled={button} type="submit" onClick={handleSubmit}>
+                    <button className={style.button_add} disabled={button} type="submit">
                      CREAR</button>
                 )}
             </form>
