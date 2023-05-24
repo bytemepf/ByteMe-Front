@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 export default function LandingPage(){
   /*   const products = useSelector((state) => state.products.data); */
     const {loginWithRedirect} = useAuth0();
-    console.log(loginWithRedirect)
+    
     return(
         <div className="main">
             <div className='overlay'></div>
