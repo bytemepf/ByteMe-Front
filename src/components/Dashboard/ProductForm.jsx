@@ -174,7 +174,7 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
             <p>El producto ha sido modificado exitosamente &nbsp; ✅</p>
         </div>
         <div className={style.container}>
-            <form className={style.productForm}> 
+            <form className={style.productForm} encType="multipart/form-data"> 
             <h1>Crear producto</h1>
                 {/* id */}
                 <input type="hidden" name="id" value={form.id} />
