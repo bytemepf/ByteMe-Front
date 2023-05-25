@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Logoutbutton as LogoutButton } from "./Logout";
 import styles from "./user.module.css";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../Redux/actions";
+import { postUsers } from "../Redux/actions";
 import { Link } from "react-router-dom";
 
 export const User = () => {
@@ -14,7 +14,7 @@ export const User = () => {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      dispatch(loginUser(user));
+      dispatch(postUsers(user));
       localStorage.setItem("usuario", JSON.stringify(user));
     }
   }, [dispatch, isAuthenticated, user]);

@@ -17,6 +17,7 @@ import User from "./components/user"
 import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
 import SideBar from "./components/Dashboard/SideBar";
+import AllUsers from "./components/AllUsers/AllUsers";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -40,7 +41,7 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/register", "/user", "/admin", "/admin/add", "/admin/list"];
+  const hideNavbarRoutes = ["/", "/login", "/register", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
 
   function AdminLayout() {
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -57,6 +58,7 @@ function App() {
         <Routes>
           <Route exact path="/add" element={<ProductForm isEditMode={isEditMode} selectedProductId={selectedProductId}/>} />
           <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit}/>} />
+          <Route exact path="/allUsers" element={ <AllUsers handleEdit={handleEdit}/>}/>
         </Routes>
       </div>
     );
