@@ -7,7 +7,8 @@ import { GET_PRODUCTS,
     POST_PRODUCTS,
     LOGIN_USER,
     LOGOUT_USER,
-    GET_ALL_PRODUCTS } from "./actions"
+    GET_ALL_PRODUCTS, 
+    LOGICAL_DELETION} from "./actions"
 
 let initialState = {
     products: {
@@ -15,7 +16,7 @@ let initialState = {
         totalProducts: 0,
         totalPages: 0,
         page: 1
-      },
+    },
     users: [],
     details: [],
     filterByName: [],
@@ -34,7 +35,7 @@ const rootReducer = (state = initialState, action) => {
                     totalProducts: action.payload.totalProducts,
                     totalPages: action.payload.totalPages,
                     page: action.payload.page
-                  }
+                }
             }
             
         case GET_PRODUCTS_BY_ID:
@@ -72,7 +73,7 @@ const rootReducer = (state = initialState, action) => {
                     totalProducts: action.payload.totalProducts,
                     totalPages: action.payload.totalPages,
                     page: action.payload.page
-                  }
+                }
             }
 
             case LOGIN_USER:
@@ -95,7 +96,18 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     allProducts: action.payload
                 }
+            
+            // case LOGICAL_DELETION:
+            //     let userRemove = state.users.filter((user) => { 
+            //         return user.id !== action.payload
+            //     })
                 
+            //         state.users.splice(userRemove, 1)
+
+            //     return{
+            //         ...state,
+            //         users: [...state.users]
+            //     }
 
         default:
             return{
