@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../../Redux/actions";
+import { getUsers, logicalDeletion } from "../../Redux/actions";
 import styles from "./AllUsers.module.css";
 
 const AllUsers = () => {
@@ -13,7 +13,9 @@ const AllUsers = () => {
 
   const usersList = Array.isArray(allUsers) ? allUsers : [allUsers];
 
-  console.log(usersList);
+  const handleClick = (id, active) => {
+    dispatch(logicalDeletion(id));
+  };
 
   return (
     <div className={styles.usersListContainer}>
@@ -27,6 +29,15 @@ const AllUsers = () => {
                 <p>Email: {user.email}</p>
                 <p>Role: {user.role}</p>
                 <p>Active: {user.active ? "Yes" : "No"}</p>
+                {user.active ? (
+                  <button onClick={() => handleClick(user.id, user.active)} className={styles.deactivate}>
+                    Desactivar
+                  </button>
+                ) : (
+                  <button onClick={() => handleClick(user.id, user.active)} className={styles.activate}>
+                    Activar
+                  </button>
+                )}
               </div>
             ))}
           </div>
