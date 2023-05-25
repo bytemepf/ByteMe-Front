@@ -1,4 +1,4 @@
-import CategoriesItemAudio from "./CategoriesItemAudio";
+import CategoriesItemAudio from "./CategoriesItemAudio.jsx"
 import Footer from "../Footer";
 import Newsletter from "../Newsletter";
 import CategoriesHeader from "../CategoriesHeader";

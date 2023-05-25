@@ -13,6 +13,7 @@ import ProductPage, { CartContext } from "./pages/ProductPage";
 import { useEffect, useState } from "react";
 import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
+import Payment from "../src/components/stripe/Payment.jsx"
 import User from "./components/user"
 import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
@@ -41,7 +42,8 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/register", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
+  console.log(location)
+  const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
 
   function AdminLayout() {
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -74,7 +76,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User/>} />
-
+         <Route path="/payment" element={<Payment/>}/>
         <Route path="categories" element={<Categories />} />
         <Route path="categories/all" element={<All />} />
         <Route path="categories/all/teclados" element={<Teclados />} />
