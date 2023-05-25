@@ -1,9 +1,11 @@
 import Video from '../assets/videoLanding.mp4';
 import "./landing.css";
 import { useAuth0 } from '@auth0/auth0-react';
-
+/* import { Carousel } from 'react-responsive-carousel';
+ */import 'react-responsive-carousel/lib/styles/carousel.min.css';
+/* import ProductItem from '../components/ProductItem'; */
 export default function LandingPage(){
-    
+  /*   const products = useSelector((state) => state.products.data); */
     const {loginWithRedirect} = useAuth0();
     
     return(
@@ -17,6 +19,14 @@ export default function LandingPage(){
                 <div className='bottonL'>
                     <button onClick={() => loginWithRedirect()}>Login</button>
                 </div>
+          {/*       <Carousel>
+                    {products.map((item)=>{
+                        <ProductItem key={item.id} item={item}/>   
+                    })
+
+                    }
+                 
+                </Carousel> */}
             </div>
         </div>
     )
