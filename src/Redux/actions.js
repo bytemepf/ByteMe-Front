@@ -115,7 +115,7 @@ export const getFilters = (queryString) => {
 
     export const logicalDeletion = (id) => {
       return async function (dispatch){
-        await axios.put(`${URL_BASE}/admin/${id}`);
+        await axios.put(`${URL_BASE}/admin/user/active/${id}`);
         dispatch({
           type: LOGICAL_DELETION,
           payload: id,
