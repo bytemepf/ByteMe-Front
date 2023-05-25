@@ -1,29 +1,35 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../Redux/actions";
+import styles from "./AllUsers.module.css";
 
 const AllUsers = () => {
   const allUsers = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  
-  console.log(allUsers)
-  
+
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
+  const usersList = Array.isArray(allUsers) ? allUsers : [allUsers];
+
+  console.log(usersList);
+
   return (
-    <div>
-      {allUsers ? (
-        allUsers.length > 0 ? (
-          <ul>
-            {allUsers.map((user) => (
-              <li key={user.id}>
-                ID: {user.id}, Name: {user.name}, Email: {user.email}, Role:{" "}
-                {user.role}, Active: {user.active ? "Yes" : "No"}
-              </li>
+    <div className={styles.usersListContainer}>
+      {usersList ? (
+        usersList.length > 0 ? (
+          <div className={styles.cardContainer}>
+            {usersList.map((user) => (
+              <div key={user.id} className={styles.card}>
+                <p>ID: {user.id}</p>
+                <p>Name: {user.name}</p>
+                <p>Email: {user.email}</p>
+                <p>Role: {user.role}</p>
+                <p>Active: {user.active ? "Yes" : "No"}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p>No hay usuarios</p>
         )

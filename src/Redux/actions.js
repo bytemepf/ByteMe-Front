@@ -63,33 +63,6 @@ export const postProducts = () => {
     }
 }
 
-// export const loginUser = (credentials) => {
-//   return async function(dispatch) {
-//     try {
-//       const response = await axios.post(`${URL_BASE}/auth/login`, credentials);
-//       const user = response.data;
-//       dispatch({
-//         type: 'LOGIN_USER',
-//         payload: user
-//       });
-//       localStorage.setItem("user", JSON.stringify(user));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// }
-
-// export const logoutUser = () => {
-//   return function(dispatch) {
-//     dispatch({
-//       type: 'LOGOUT_USER'
-//     });
-//     localStorage.removeItem("user");
-//   }
-// }
-
-
-
 export const getFilters = (queryString) => {
   console.log(queryString);
   return async function(dispatch){
@@ -132,7 +105,7 @@ export const getFilters = (queryString) => {
   
   export const getUsers = () => {
     return async function(dispatch){
-              const response = await axios.get(`${URL_BASE}/user`);
+              const response = await axios.get(`${URL_BASE}/user/info`);
               return dispatch({
                   type: GET_USERS,
                   payload: response.data
