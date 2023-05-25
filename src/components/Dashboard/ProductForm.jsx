@@ -231,7 +231,7 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
                 {/* Image */}
                 <div  name="image" value={form.image}>
                 <label>Seleccionar imagen:</label>
-                    <input className={style.input_name} type="text" value={form.image} name="image" placeholder="Imagen..." onChange={handleChange}/>
+                    
                     <input type="file" id="image" name="image" onChange={handleChange}/>
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
