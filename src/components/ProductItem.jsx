@@ -13,7 +13,7 @@ function ProductItem({ products }) {
   // useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
   //   dispatch(getProducts());
   // }, [dispatch])
-
+console.log(products);
   return (
     <>
   {filteredItems.length !== 0 ? (

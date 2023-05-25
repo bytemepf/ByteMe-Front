@@ -16,6 +16,7 @@ function ProudProducts() {
   
   const pagination = (page) => {
     setPage(page)
+    //dispatch(getProducts(page, limit));
   }
   
   console.log(products)
@@ -28,7 +29,7 @@ function ProudProducts() {
     <div className="proud-container">
       <h2 className="container proud-h2">Productos</h2>
       <section>
-          <Filters page={page} limit={limit}/>
+          <Filters page={page} limit={limit} setPage={setPage} setLimit={setLimit}/>
       </section>
       <div className="container">
         <ul className="pagination">

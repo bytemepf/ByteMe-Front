@@ -33,9 +33,9 @@ const validate = (form) => {
         else if(!numbersRegExp.test(form.quantity)){
             errors.quantity = "*Cantidad inválida, debe ingresar un número"
         }
-        if(!form.image) {
-            errors.image = "*Debe seleccionar una imagen"
-        }
+        // if(!form.image) {
+        //     errors.image = "*Debe seleccionar una imagen"
+        // }
         return errors
 }
 
@@ -186,7 +186,7 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
             <p>El producto ha sido modificado exitosamente &nbsp; ✅</p>
         </div>
         <div className={style.container}>
-            <form className={style.productForm} onSubmit={handleSubmit}> 
+            <form className={style.productForm} encType="multipart/form-data" onSubmit={handleSubmit}> 
             <h1>Crear producto</h1>
                 {/* id */}
                 <input type="hidden" name="id" value={form.id} />
@@ -232,6 +232,7 @@ const category = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Au
                 <div  name="image" value={form.image}>
                 <label>Seleccionar imagen:</label>
                     <input className={style.input_name} type="text" value={form.image} name="image" placeholder="Imagen..." onChange={handleChange}/>
+                    <input type="file" id="image" name="image" onChange={handleChange}/>
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}

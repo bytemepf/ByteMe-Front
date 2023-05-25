@@ -3,10 +3,7 @@ import {useSelector, useDispatch} from "react-redux"
 import React, {useState, useEffect} from "react";
 import {getFilters, getAllProducts} from "../../Redux/actions"
 
-function Filters() {
-    //const items = useSelector((state) => state.products.data);
-    //console.log(items);
-    //const filteredItems = Array.isArray(items)? items : [items];
+function Filters({page, limit, setPage, setLimit}) {
     const allProducts = useSelector((state) => state.allProducts);
     const dispatch = useDispatch();
 
@@ -18,25 +15,12 @@ function Filters() {
         max: '',
         alphabetic: '',
         numeric: '',
-        page: 1,
-        limit: 10
     });
 
     useEffect(()=>{
         dispatch(getAllProducts())
     }, [dispatch])
     
-    // const filtersRef = useRef(filters);
-
-    // useEffect(() => {
-    //   if (JSON.stringify(filtersRef.current) !== JSON.stringify(filters)) {
-    //     filtersRef.current = filters;
-    //     handleSubmit();
-    //   }
-    // }, [filters]);
-    
-
-
     const handleChange = (event) => {
         const property = event.target.name;
         const value = event.target.value
@@ -47,25 +31,37 @@ function Filters() {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        const updatedFilters = { ...filters };
-        setFilters(updatedFilters);
+        // const updatedFilters = { ...filters };
+        // setFilters(updatedFilters);
 
         const queryString = Object.keys(filters)
         .filter(key => filters[key])
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
         .join('&');
-        dispatch(getFilters(queryString));
-        }
 
-/////////////////////////////////////////////////////////////////////////////
-    // const handleClearFilter = (filterKey) => {
-    //     setFilters((prevFilters) => ({
-    //       ...prevFilters,
-    //       [filterKey]: "", // Limpiar el filtro seleccionado
-    //     }));
-      
-    //     const updatedFilters = { ...filters, [filterKey]: "" };
+        const filtersWithPage = `${queryString}&page=${page}&limit=${limit}`;
+        dispatch(getFilters(filtersWithPage));
+        //dispatch(getFilters(queryString));
+    }
 
+    const handleClearFilters = (e) => {
+        e.preventDefault();
+        
+        setFilters(prevFilters => ({
+            ...prevFilters,
+          name: '',
+          category: '',
+          brand: '',
+          min: '',
+          max: '',
+          alphabetic: '',
+          numeric: '',
+        }));
+        setPage(1);
+        setLimit(12);
+        dispatch(getFilters(''));
+        dispatch(getAllProducts());
+    }
   
  //////////FILTRAR INFO PARA MAPEAR LOS FILTROS////////////////////////////////////////////
 
@@ -85,16 +81,31 @@ function Filters() {
     }, []);
 
 /////DROPDOWN/////////////////////////////////////////////////////////////////////////
-    function dropdownFilter() {
-        document.getElementById("dropdownFilter").classList.toggle("show");
-    }
+    // function dropdownFilter() {
+    //     document.getElementById("dropdownFilter").classList.toggle("show");
+    // }
+    document.addEventListener("DOMContentLoaded", function() {
+        var toggleButton = document.getElementById("toggleButton");
+        toggleButton.addEventListener("click", toggleContent);
+      });
+
+    function toggleContent() {
+        var content = document.getElementById("content");
+        if (content.classList.contains("hidden")) {
+          content.style.display = "block";
+          content.classList.remove("hidden");
+        } else {
+          content.style.display = "none";
+          content.classList.add("hidden");
+        }
+      }
 ////////////////////////////////////////////////////////////////////////////////////
 
     return (
         <>
-            <div className="dropdown">
-                <button onClick={dropdownFilter} className="dropbtn">FILTROS</button>
-                <div id="dropdownFilter" className="dropdown-content">
+            <div class="container">
+                <button id="toggleButton" onClick={toggleContent} >FILTROS</button>
+                <div id="content" className="hidden">
                     <div>
                         <h2>Ordenar productos</h2>
                         <div> 
@@ -140,6 +151,7 @@ function Filters() {
                     </div>
                     </div> 
                     <button onClick={handleSubmit}>Aplicar filtros</button>
+                    <button onClick={handleClearFilters}>Limpiar filtros</button>
                 </div>
             </div>
             
