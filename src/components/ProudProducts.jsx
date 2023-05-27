@@ -18,8 +18,6 @@ function ProudProducts() {
     setPage(page)
   }
   
-  console.log(products)
-
   useEffect(()=>{
     dispatch(getProducts(page, limit))
   }, [dispatch, page, limit])

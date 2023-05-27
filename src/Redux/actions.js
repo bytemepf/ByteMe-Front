@@ -11,8 +11,11 @@ export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
+//export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS";
 
 export const URL_BASE = "https://byte-me-backend.onrender.com/api"
+//export const URL_BASE = "http://localhost:8080/api"
+
 
 export const getProducts = (page, limit) => {
     return async function(dispatch) {
@@ -122,3 +125,18 @@ export const getFilters = (queryString) => {
         })
       }
     }
+
+    // export const updateUserStatus = (id, active) => {
+    //   return async function (dispatch) {
+    //     try {
+    //       await axios.put(`${URL_BASE}/admin/user/status/${id}`, { active });
+    //       dispatch({
+    //         type: UPDATE_USER_STATUS,
+    //         payload: { id, active },
+    //       });
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   };
+    // };
+    

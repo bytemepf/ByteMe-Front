@@ -97,18 +97,13 @@ const rootReducer = (state = initialState, action) => {
                     allProducts: action.payload
                 }
             
-            // case LOGICAL_DELETION:
-            //     let userRemove = state.users.filter((user) => { 
-            //         return user.id !== action.payload
-            //     })
-                
-            //         state.users.splice(userRemove, 1)
-
-            //     return{
-            //         ...state,
-            //         users: [...state.users]
-            //     }
-
+            case LOGICAL_DELETION:
+                const updatedUsers = { ...state.users };
+                delete updatedUsers[action.payload];
+                return {
+                    ...state,
+                    users: updatedUsers,
+                };
         default:
             return{
             ...state,
