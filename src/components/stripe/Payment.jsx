@@ -28,8 +28,6 @@ const CheckoutForm = () => {
     dispatch(getUsers())
   }, dispatch)
 
-  console.log(users);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,7 +40,6 @@ const CheckoutForm = () => {
     if (user){
       const currentUserEmail = user.email;
       const currentUser = users.find((user) => user.email === currentUserEmail); 
-      console.log(currentUser);
       // Verificar si el usuario está activo
       if (!currentUser.active) {
         Swal.fire({
@@ -95,7 +92,6 @@ const CheckoutForm = () => {
           title: 'Compra realizada con éxito',
           text: 'Te llegará la información a tu casilla de correo',
         });
-        console.log( "este es mi token"+data.tokenId);
 
         elements.getElement(CardElement).clear();
       } catch (error) {
@@ -104,7 +100,6 @@ const CheckoutForm = () => {
           title: 'Algo ha salido mal...',
           text: error.response.data,
         });
-        console.log(error+"este es el error");
       }
       setLoading(false);
     }
@@ -119,7 +114,6 @@ const CheckoutForm = () => {
     } 
   };
 
-  console.log(!stripe || loading);
 
   return (
     <body className="body">

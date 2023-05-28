@@ -150,6 +150,12 @@
   }
   
   .atc-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 50%;
+    margin-left: 28%;
+    padding-top: 2%;
     background-color: transparent;
     border: 2px solid black !important;
   }

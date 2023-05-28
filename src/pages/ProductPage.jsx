@@ -1,11 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import "../components/ProductPage.css";
-import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsById } from "../Redux/actions";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 export const CartContext = createContext();
 
@@ -82,16 +81,15 @@ function ProductPage() {
             
             
                 <button onClick={() => {addToCart(item); showNotify();}} className="atc-btn">añadir al carrito</button>
-                <button className="buy-btn">
-                   <Link  to={{ pathname: "/payment"  }}>
-                  comprar ahora
-                      </Link>
-                </button>
+                {/* <button className="buy-btn">
+                  <Link  to={{ pathname: "/payment"  }}>
+                    comprar ahora
+                  </Link>
+                </button> */}
               </div>
             </div>
           </div>
         </div>
-        <Newsletter />
         <Footer />
       </div>
     </>

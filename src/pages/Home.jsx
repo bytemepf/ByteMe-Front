@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
-import Newsletter from "../components/Newsletter";
 import ProudProducts from "../components/ProudProducts";
 import { useEffect } from "react";
 import { postUsers } from "../Redux/actions";
@@ -37,7 +36,6 @@ function Home() {
     <>
       <Hero />
       <ProudProducts />
-      <Newsletter />
       <Footer />
     </>
   );
