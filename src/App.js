@@ -49,6 +49,8 @@ function App() {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
 
+// console.log(isEditMode)
+// console.log(selectedProductId);
     const handleEdit = (itemId) => {
       setSelectedProductId(itemId);
       setIsEditMode(true);
@@ -58,8 +60,8 @@ function App() {
       <div className="admin-layout">
         <SideBar />
         <Routes>
-          <Route exact path="/add" element={<ProductForm isEditMode={isEditMode} selectedProductId={selectedProductId}/>} />
-          <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit}/>} />
+          <Route exact path="/add" element={<ProductForm handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
+          <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
           <Route exact path="/allUsers" element={ <AllUsers handleEdit={handleEdit}/>}/>
         </Routes>
       </div>

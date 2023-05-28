@@ -49,7 +49,7 @@ const ProductsList = ({handleEdit}) => {
               )
             )}
           </ul>
-          <div className="products-grid">
+          <div>
             <ProductCard products={products} handleEdit={handleEdit}/>
           </div>
         </div>
