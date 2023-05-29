@@ -11,6 +11,8 @@ export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
+export const LOGICAL_DELETION_PRODUCTS = "LOGICAL_DELETION_PRODUCTS";
+
 
 export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 
@@ -118,6 +120,16 @@ export const getFilters = (queryString) => {
         await axios.put(`${URL_BASE}/admin/user/active/${id}`);
         dispatch({
           type: LOGICAL_DELETION,
+          payload: id,
+        })
+      }
+    }
+
+    export const logicalDeletionProducts = (id) => {
+      return async function (dispatch){
+        await axios.put(`${URL_BASE}/admin/products/active/${id}`);
+        dispatch({
+          type: LOGICAL_DELETION_PRODUCTS,
           payload: id,
         })
       }

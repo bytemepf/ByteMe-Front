@@ -19,6 +19,7 @@ import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
 import SideBar from "./components/Dashboard/SideBar";
 import AllUsers from "./components/AllUsers/AllUsers";
+import EditProductForm from "./components/Dashboard/EditProductForm";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -43,7 +44,7 @@ function App() {
 
   const location = useLocation();
   console.log(location)
-  const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
+  const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers", "/admin/edit"];
 
   function AdminLayout() {
     const [selectedProductId, setSelectedProductId] = useState(null);
@@ -62,6 +63,7 @@ function App() {
         <Routes>
           <Route exact path="/add" element={<ProductForm handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
           <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
+          <Route exact path="/edit" element={<EditProductForm/>} />
           <Route exact path="/allUsers" element={ <AllUsers handleEdit={handleEdit}/>}/>
         </Routes>
       </div>

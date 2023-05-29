@@ -74,9 +74,9 @@ const ProductForm = () => {
         else setButton(true)
     }, [form, setButton]);
     
-    const [notify, setNotify] = useState(false);
-    const showNotify = () => {
-        setNotify(!notify);
+    const [modify, setModify] = useState(false);
+    const showModify = () => {
+        setModify(!modify);
     };
 
     const handleChange = (e) => {
@@ -88,6 +88,7 @@ const ProductForm = () => {
         //     value = parseFloat(value);
 
         // }
+        //previewImage(image)
         
         const updatedForm = { ...form, [property]: value };
         const updatedErrors = validate(updatedForm);
@@ -112,79 +113,74 @@ const ProductForm = () => {
         .post(`${urlApi}/admin/products`,formData, {
             headers:{"Content-Type":"multipart/form-data"}
         })
-        .then(showNotify())
+        .then(showModify())
         .catch(err => {
             console.log(err.response.message);
             alert(err);})
     };
     
-    // const location = useLocation();
-    // const isEditMode = location.state && location.state.isEditMode;
-    // const {id, name, description, brand, price, category, quantity, imageM} = location.state;
-    // console.log(isEditMode)
-    // console.log(id);
-    // console.log(name)
+    const location = useLocation();
+    const isEditMode = location.state && location.state.isEditMode;
+    const {id, name, description, brand, price, category, quantity, imageM} = location.state;
+    console.log(isEditMode)
+    console.log(id);
+    console.log(name)
 
-    // useEffect((e) => {
-    //     if (isEditMode && location.state){
-    //     const productData = { isEditMode, id, name, description, brand, price, category, quantity, imageM }
-    //            // Preenlazar el formulario con los datos del producto
-    //            setForm((prevForm) => ({
-    //             ...prevForm,
-    //             //id: productData.id,
-    //             name: productData.name,
-    //             description: productData.description,
-    //             brand: productData.brand,
-    //             price: productData.price,
-    //             category: productData.category,
-    //             quantity: productData.quantity,
-    //             image: productData.imageM
-    //           }));
+    useEffect((e) => {
+        if (isEditMode && location.state){
+        const productData = { isEditMode, id, name, description, brand, price, category, quantity, imageM }
+               // Preenlazar el formulario con los datos del producto
+               setForm((prevForm) => ({
+                ...prevForm,
+                //id: productData.id,
+                name: productData.name,
+                description: productData.description,
+                brand: productData.brand,
+                price: productData.price,
+                category: productData.category,
+                quantity: productData.quantity,
+                image: productData.imageM
+              }));
          
-    //            console.log("Producto cargado para modificar:", productData);  
-    //     } else {
-    //         handleChange(e)
-    //     }
-    // }, [isEditMode,id, name, description, brand, price, category, quantity, imageM])
+               console.log("Producto cargado para modificar:", productData);  
+        } else {
+            handleChange(e)
+        }
+    }, [isEditMode,id, name, description, brand, price, category, quantity, imageM])
       
      
     //   if (isEditMode) {
     //     handleModify(selectedProductId)
     //   }
 
-    // const handleModifySubmit = (e) => {
-    //     e.preventDefault();
-    //     axios
-    //       .put(`${urlApi}/admin/products/${form.id}`, form)
-    //       .then((response) => {
-    //         console.log("Producto modificado:", response.data);
-    //         // Restablecer el estado del formulario
-    //         setForm({
-    //           name: "",
-    //           description: "",
-    //           brand: "",
-    //           price: "",
-    //           category: "",
-    //           quantity: "",
-    //           image: "",
-    //         });
-    //         // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
-    //         showModify()
-    //       })
-    //       .catch((error) => {
-    //         console.log("Error al modificar el producto:", error.response.data);
-    //         // Manejar el error, mostrar una notificación de error, etc.
-    //       });
-    //   };
+    const handleModifySubmit = (e) => {
+        e.preventDefault();
+        axios
+          .put(`${urlApi}/admin/products/${form.id}`, form)
+          .then((response) => {
+            console.log("Producto modificado:", response.data);
+            // Restablecer el estado del formulario
+            setForm({
+              name: "",
+              description: "",
+              brand: "",
+              price: "",
+              category: "",
+              quantity: "",
+              image: "",
+            });
+            // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
+            showModify()
+          })
+          .catch((error) => {
+            console.log("Error al modificar el producto:", error.response.data);
+            // Manejar el error, mostrar una notificación de error, etc.
+          });
+      };
 
 const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
 const handleImage = (e) => {
-    setImage(e.target.files[0])
-}
-
-// const handleSubmits = () => {
-//  {isEditMode ? (handleModifySubmit()) : (handleCreateSubmit())}
-// }
+    setImage(e.target.files[0])}
 
 // function previewImage() {        
 //     var reader = new FileReader();         
@@ -193,16 +189,17 @@ const handleImage = (e) => {
 //         document.getElementById('uploadPreview').src = e.target.result;         
 //     };     
 // }
+
     return(
         <div className={style.main_wrapper}>
         <div
-            onAnimationEnd={() => setNotify(false)}
-            className={`notify ${notify ? "slide-in" : ""}`}>
-            <p>El producto ha sido creado exitosamente &nbsp; ✅</p>
+            onAnimationEnd={() => setModify(false)}
+            className={`notify ${modify ? "slide-in" : ""}`}>
+            <p>El producto ha sido modificado exitosamente &nbsp; ✅</p>
         </div>
         <div className={style.container}>
-            <form className={style.productForm} encType="multipart/form-data" onSubmit={handleCreateSubmit}> 
-            <h1>Crear producto</h1>
+            <form className={style.productForm} encType="multipart/form-data" onSubmit={handleModifySubmit}> 
+            <h1>Modificar producto</h1>
                 {/* id */}
                 <input type="hidden" name="id" value={form.id} />
                 {/* name */}
@@ -251,8 +248,8 @@ const handleImage = (e) => {
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}
-                    <button className={style.button_add} disabled={button} type="submit">
-                     CREAR</button>
+                    <button className={style.button_add} disabled={button} type="submit" >
+                    MODIFICAR</button>      
             </form>
         </div>
         </div>

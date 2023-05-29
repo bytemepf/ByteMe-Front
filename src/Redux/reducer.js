@@ -8,7 +8,8 @@ import { GET_PRODUCTS,
     LOGIN_USER,
     LOGOUT_USER,
     GET_ALL_PRODUCTS, 
-    LOGICAL_DELETION} from "./actions"
+    LOGICAL_DELETION,
+    LOGICAL_DELETION_PRODUCTS} from "./actions"
 
 let initialState = {
     products: {
@@ -97,17 +98,21 @@ const rootReducer = (state = initialState, action) => {
                     allProducts: action.payload
                 }
             
-            // case LOGICAL_DELETION:
-            //     let userRemove = state.users.filter((user) => { 
-            //         return user.id !== action.payload
-            //     })
-                
-            //         state.users.splice(userRemove, 1)
+            case LOGICAL_DELETION:
+                const updatedUsers = { ...state.users };
+                delete updatedUsers[action.payload];
+                return {
+                    ...state,
+                    users: updatedUsers,
+                };
 
-            //     return{
-            //         ...state,
-            //         users: [...state.users]
-            //     }
+            case LOGICAL_DELETION_PRODUCTS: 
+                const updatedProducts = { ...state.products.data };
+                delete updatedProducts[action.payload];
+                return {
+                    ...state,
+                    products: updatedProducts.data,
+                };
 
         default:
             return{
