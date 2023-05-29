@@ -111,7 +111,9 @@ const rootReducer = (state = initialState, action) => {
                 delete updatedProducts[action.payload];
                 return {
                     ...state,
-                    products: updatedProducts.data,
+                    products: {...state.products,
+                        data: updatedProducts.data
+                    } 
                 };
 
         default:

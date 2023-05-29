@@ -1,17 +1,18 @@
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import style from "./ProductCard.module.css";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {logicalDeletionProducts} from "../../Redux/actions"
-//import { getProducts, getAllProducts } from "../../Redux/actions";
+import {logicalDeletionProducts, getProducts} from "../../Redux/actions"
 
 function ProductCard({ products, isEditMode  }) {
+  const dispatch = useDispatch();
   const filterByName = useSelector((state) => state.search)
   const filteredItems = Array.isArray(filterByName)? filterByName : [filterByName];
-
-  // useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
-  //   dispatch(getProducts());
-  // }, [dispatch])
+  const filteredProducts = Array.isArray(products)? products : [products];
+  
+  useEffect(()=>{
+    dispatch(getProducts())
+  }, [dispatch])
 
   const navigate = useNavigate()
 
@@ -32,9 +33,9 @@ function ProductCard({ products, isEditMode  }) {
     //handleEdit(id);
   };
 
-  const dispatch = useDispatch();
   const handleStatusClick = (id, active) => {
     dispatch(logicalDeletionProducts(id));
+    dispatch(getProducts())
   };
 
   
@@ -61,7 +62,7 @@ function ProductCard({ products, isEditMode  }) {
             </div>
           ))
         ) : (
-        products.map((item) => (
+          filteredProducts.map((item) => (
           <div className={style.item_normal}>
             <div className={style.item_imagecontainer}>
               <img src={item.image} alt="item1" className={style.item_image}/>
