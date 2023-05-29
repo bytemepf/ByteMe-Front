@@ -13,6 +13,8 @@ export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
 
 export const URL_BASE = "https://byte-me-backend.onrender.com/api"
+//export const URL_BASE = "http://localhost:8080/api"
+
 
 export const getProducts = (page, limit) => {
     return async function(dispatch) {

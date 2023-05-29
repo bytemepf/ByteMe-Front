@@ -15,6 +15,7 @@ const AllUsers = () => {
 
   const handleClick = (id, active) => {
     dispatch(logicalDeletion(id));
+    dispatch(getUsers())
   };
 
   return (

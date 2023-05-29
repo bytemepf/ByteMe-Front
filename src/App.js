@@ -42,7 +42,6 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  console.log(location)
   const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
 
   function AdminLayout() {
@@ -76,7 +75,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User/>} />
-         <Route path="/payment" element={<Payment/>}/>
+        <Route path="/payment" element={<Payment/>}/>
         <Route path="categories" element={<Categories />} />
         <Route path="categories/all" element={<All />} />
         <Route path="categories/all/teclados" element={<Teclados />} />
