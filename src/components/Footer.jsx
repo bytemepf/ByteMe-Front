@@ -5,11 +5,8 @@ function Footer() {
     <>
       <footer>
         <div className="footer-links">
-          <a href="#">Acerca de</a>
-          <a href="#">Localizador de tiendas</a>
-          <a href="#">Preguntas frecuentes</a>
-          <a href="#">Noticias</a>
-          <a href="#">Carreras</a>
+          <a href="#">Quienes somos</a>
+          <a href="#">Creadores</a>
           <a href="#">Contacto</a>
         </div>
       </footer>

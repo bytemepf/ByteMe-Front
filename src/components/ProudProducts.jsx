@@ -19,8 +19,6 @@ function ProudProducts() {
     //dispatch(getProducts(page, limit));
   }
   
-  console.log(products)
-
   useEffect(()=>{
     dispatch(getProducts(page, limit))
   }, [dispatch, page, limit])
