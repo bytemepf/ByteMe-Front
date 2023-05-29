@@ -6,7 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { getUsers } from "../../Redux/actions";
+import { getAllProducts, getUsers } from "../../Redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
@@ -14,6 +14,7 @@ const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 const CheckoutForm = () => {
   const item = useSelector((state) => state.details);
   const users = useSelector((state) => state.users);
+  const products = useSelector((state) => state.allProducts)
   const {user} = useAuth0();
   const dispatch = useDispatch();
   const productPrice = item.price;
@@ -24,8 +25,10 @@ const CheckoutForm = () => {
   const [email, setEmail] = useState(""); 
 
 
+
   useEffect(()=>{
     dispatch(getUsers())
+    dispatch(getAllProducts())
   }, dispatch)
 
   const handleSubmit = async (e) => {
@@ -35,6 +38,26 @@ const CheckoutForm = () => {
       type: "card",
       card: elements.getElement(CardElement),
     });
+
+    if (products.length > 0 && products[0].quantity === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'No puedes realizar la compra',
+        text: 'La cantidad del producto es 0',
+      });
+      setLoading(false);
+      return;
+    }
+
+    if (products[0].active === false ) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'No puedes realizar la compra',
+        text: 'El producto está desactivado',
+      });
+      setLoading(false);
+      return;
+    }
 
     // Obtener el usuario actual
     if (user){
