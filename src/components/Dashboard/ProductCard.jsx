@@ -10,9 +10,9 @@ function ProductCard({ products, isEditMode  }) {
   const filteredItems = Array.isArray(filterByName)? filterByName : [filterByName];
   const filteredProducts = Array.isArray(products)? products : [products];
   
-  useEffect(()=>{
-    dispatch(getProducts())
-  }, [dispatch])
+  // useEffect(()=>{
+  //   dispatch(getProducts())
+  // }, [dispatch])
 
   const navigate = useNavigate()
 
@@ -35,7 +35,6 @@ function ProductCard({ products, isEditMode  }) {
 
   const handleStatusClick = (id, active) => {
     dispatch(logicalDeletionProducts(id));
-    dispatch(getProducts())
   };
 
   

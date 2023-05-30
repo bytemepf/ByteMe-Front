@@ -107,14 +107,14 @@ const rootReducer = (state = initialState, action) => {
                 };
 
             case LOGICAL_DELETION_PRODUCTS: 
-                const updatedProducts = { ...state.products.data };
+                const updatedProducts = [ ...state.products.data];
+                console.log(updatedProducts);
                 delete updatedProducts[action.payload];
                 return {
                     ...state,
-                    products: {...state.products,
-                        data: updatedProducts.data
+                    allProducts: updatedProducts
                     } 
-                };
+                
 
         default:
             return{
