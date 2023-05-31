@@ -36,7 +36,7 @@ const validate = (form, image) => {
         else if(!numbersRegExp.test(form.quantity)){
             errors.quantity = "*Cantidad inválida, debe ingresar un número"
         }
-        if(!image) {
+        if(image !== File) {
             errors.image = "*Debe seleccionar una imagen"
         }
         return errors
@@ -66,13 +66,13 @@ const ProductForm = () => {
     });
  
     useEffect(()=>{
-        setErrors(validate(form));
-    }, [form]); 
+        setErrors(validate(form, image));
+    }, [form, image]); 
     
     useEffect(()=>{
-        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price !== null && form.category.length > 0 && form.quantity  !== null && image === !null) setButton(false) 
+        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price !== null && form.category.length > 0 && form.quantity  !== null && image !== undefined) setButton(false) 
         else setButton(true)
-    }, [form, setButton]);
+    }, [form, image, setButton]);
     
     const [notify, setNotify] = useState(false);
     const showNotify = () => {
@@ -82,12 +82,6 @@ const ProductForm = () => {
     const handleChange = (e) => {
         const property = e.target.name;
         let value = e.target.value; // Usar let en lugar de const
-        
-        // if (property === "price" || property === "quantity") {
-        //     // Convertir el valor a número
-        //     value = parseFloat(value);
-
-        // }
         
         const updatedForm = { ...form, [property]: value };
         const updatedErrors = validate(updatedForm);
@@ -177,22 +171,32 @@ const ProductForm = () => {
     //       });
     //   };
 
-const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
-const handleImage = (e) => {
-    setImage(e.target.files[0])
-}
+    const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
 
-// const handleSubmits = () => {
-//  {isEditMode ? (handleModifySubmit()) : (handleCreateSubmit())}
-// }
+    const handleImage = (e) => {
+        setImage(e.target.files[0])
+        setErrors(validate({[image]:e.target.files[0]}))
+        previewImage()
+            
+    }
 
-// function previewImage() {        
-//     var reader = new FileReader();         
-//     reader.readAsDataURL(document.getElementById('image').files);         
-//     reader.onload = function (e) {             
-//         document.getElementById('uploadPreview').src = e.target.result;         
-//     };     
-// }
+    function previewImage() {
+        var file = document.getElementById("image").files
+        if (file.length > 0) {
+            var fileReader = new FileReader()
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview").setAttribute("src", event.target.result)
+            }
+
+            fileReader.readAsDataURL(file[0])
+        }else {
+            // Si no hay imagen seleccionada, puedes mostrar una imagen predeterminada o limpiar la vista previa
+            document.getElementById("preview").setAttribute("src", {notavailable}); // Limpiar la vista previa
+            //document.getElementById("preview").setAttribute("src", "ruta_a_imagen_predeterminada"); // Mostrar imagen predeterminada
+          }
+    }
+
     return(
         <div className={style.main_wrapper}>
         <div
@@ -244,10 +248,10 @@ const handleImage = (e) => {
                 </div>
                 <div className={style.error_form}>{errors.quantity && <p>{errors.quantity}</p>}</div>
                 {/* Image */}
-                <div  name="image" value={form.image}>
+                <div  name="image" value={image}>
                 <label>Seleccionar imagen:</label>
                     <input type="file" id="image" name="image" onChange={handleImage}/>
-                    <img id="uploadPreview" width="150" height="150" src={notavailable} />
+                    <img id="preview" width="150" height="150" src={notavailable} />
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}

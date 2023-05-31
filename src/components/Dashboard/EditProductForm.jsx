@@ -36,7 +36,7 @@ const validate = (form, image) => {
         else if(!numbersRegExp.test(form.quantity)){
             errors.quantity = "*Cantidad inválida, debe ingresar un número"
         }
-        if(!image) {
+        if(image === null) {
             errors.image = "*Debe seleccionar una imagen"
         }
         return errors
@@ -244,7 +244,6 @@ const handleImage = (e) => {
                 <div  name="image" value={form.image}>
                 <label>Seleccionar imagen:</label>
                     <input type="file" id="image" name="image" onChange={handleImage}/>
-                    <img id="uploadPreview" width="150" height="150" src={notavailable} />
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}

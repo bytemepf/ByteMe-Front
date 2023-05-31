@@ -4,7 +4,7 @@ import style from "./ProductCard.module.css";
 import { useNavigate } from "react-router-dom";
 import {logicalDeletionProducts, getProducts} from "../../Redux/actions"
 
-function ProductCard({ products, isEditMode  }) {
+function ProductCard({ products, page, limit  }) {
   const dispatch = useDispatch();
   const filterByName = useSelector((state) => state.search)
   const filteredItems = Array.isArray(filterByName)? filterByName : [filterByName];
@@ -34,6 +34,7 @@ function ProductCard({ products, isEditMode  }) {
   };
 
   const handleStatusClick = (id, active) => {
+    dispatch(getProducts(page, limit))
     dispatch(logicalDeletionProducts(id));
   };
 

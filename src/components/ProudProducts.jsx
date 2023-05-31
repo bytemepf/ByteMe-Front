@@ -41,7 +41,7 @@ function ProudProducts() {
           )}
         </ul>
         <div className="products-grid">
-          <ProductItem products={products} />
+          <ProductItem products={products} page={page} limit={limit}/>
         </div>
       </div>
     </div>
