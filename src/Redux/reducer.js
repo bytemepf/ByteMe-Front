@@ -8,7 +8,8 @@ import { GET_PRODUCTS,
     LOGIN_USER,
     LOGOUT_USER,
     GET_ALL_PRODUCTS, 
-    LOGICAL_DELETION} from "./actions"
+    LOGICAL_DELETION,
+    SET_CURRENT_USER} from "./actions"
 
 let initialState = {
     products: {
@@ -18,6 +19,7 @@ let initialState = {
         page: 1
     },
     users: [],
+    currentUser: null,
     details: [],
     filterByName: [],
     allProducts: [],
@@ -104,6 +106,12 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     users: updatedUsers,
                 };
+                case SET_CURRENT_USER:
+                    return {
+                        ...state,
+                        currentUser: action.payload,
+                    };
+            
         default:
             return{
             ...state,

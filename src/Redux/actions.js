@@ -11,9 +11,10 @@ export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
-export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 //export const URL_BASE = "http://localhost:8080/api"
+export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 
 
 export const getProducts = (page, limit) => {
@@ -94,6 +95,7 @@ export const getFilters = (queryString) => {
       try {
         const response = await axios.post(`${URL_BASE}/auth/register`, user);
         const newUser = response.data;
+        console.log(newUser);
         dispatch({
           type: POST_USERS,
           payload: newUser,
@@ -124,3 +126,10 @@ export const getFilters = (queryString) => {
         })
       }
     }
+
+    export const setCurrentUser = (user) => {
+      return {
+        type: SET_CURRENT_USER,
+        payload: user,
+      };
+    };
