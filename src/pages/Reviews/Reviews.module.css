@@ -1,0 +1,19 @@
+.reviews{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    margin-left: 25%;
+    margin-top: 20rem;
+}
+
+.commentList{
+    margin-top: 8rem;
+    font-size: 1.5rem;
+    margin-left: 12%;
+}
+
+.itemsList{
+    text-decoration: none;
+}

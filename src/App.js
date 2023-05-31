@@ -19,6 +19,7 @@ import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
 import SideBar from "./components/Dashboard/SideBar";
 import AllUsers from "./components/AllUsers/AllUsers";
+import Reviews from "./pages/Reviews/Reviews";
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -75,6 +76,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User/>} />
+        <Route path="/reviews" element={<Reviews/>}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="categories" element={<Categories />} />
         <Route path="categories/all" element={<All />} />
