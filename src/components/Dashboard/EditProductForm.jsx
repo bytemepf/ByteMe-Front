@@ -36,7 +36,7 @@ const validate = (form, image) => {
         else if(!numbersRegExp.test(form.quantity)){
             errors.quantity = "*Cantidad inválida, debe ingresar un número"
         }
-        if(image === null) {
+        if(image !== File) {
             errors.image = "*Debe seleccionar una imagen"
         }
         return errors
@@ -66,13 +66,13 @@ const ProductForm = () => {
     });
  
     useEffect(()=>{
-        setErrors(validate(form));
-    }, [form]); 
+        setErrors(validate(form, image));
+    }, [form, image]); 
     
     useEffect(()=>{
-        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price !== null && form.category.length > 0 && form.quantity  !== null && image === !null) setButton(false) 
+        if (form.name.length > 0 && form.description.length > 0 && form.brand.length > 0 && form.price !== null && form.category.length > 0 && form.quantity  !== null && image !== undefined) setButton(false) 
         else setButton(true)
-    }, [form, setButton]);
+    }, [form, image, setButton]);
     
     const [modify, setModify] = useState(false);
     const showModify = () => {
@@ -83,13 +83,6 @@ const ProductForm = () => {
         const property = e.target.name;
         let value = e.target.value; // Usar let en lugar de const
         
-        // if (property === "price" || property === "quantity") {
-        //     // Convertir el valor a número
-        //     value = parseFloat(value);
-
-        // }
-        //previewImage(image)
-        
         const updatedForm = { ...form, [property]: value };
         const updatedErrors = validate(updatedForm);
     
@@ -99,25 +92,25 @@ const ProductForm = () => {
 
     const urlApi = `${process.env.REACT_APP_URL_BACK}`;
 
-    const handleCreateSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append("name", form.name)
-        formData.append("description", form.description)
-        formData.append("brand", form.brand)
-        formData.append("price", form.price)
-        formData.append("category", form.category)
-        formData.append("quantity", form.quantity)
-        formData.append("image", image)
-        axios
-        .post(`${urlApi}/admin/products`,formData, {
-            headers:{"Content-Type":"multipart/form-data"}
-        })
-        .then(showModify())
-        .catch(err => {
-            console.log(err.response.message);
-            alert(err);})
-    };
+    // const handleCreateSubmit = (e) => {
+    //     e.preventDefault();
+    //     const formData = new FormData()
+    //     formData.append("name", form.name)
+    //     formData.append("description", form.description)
+    //     formData.append("brand", form.brand)
+    //     formData.append("price", form.price)
+    //     formData.append("category", form.category)
+    //     formData.append("quantity", form.quantity)
+    //     formData.append("image", image)
+    //     axios
+    //     .post(`${urlApi}/admin/products`,formData, {
+    //         headers:{"Content-Type":"multipart/form-data"}
+    //     })
+    //     .then(showModify())
+    //     .catch(err => {
+    //         console.log(err.response.message);
+    //         alert(err);})
+    // };
     
     const location = useLocation();
     const isEditMode = location.state && location.state.isEditMode;
@@ -139,9 +132,9 @@ const ProductForm = () => {
                 price: productData.price,
                 category: productData.category,
                 quantity: productData.quantity,
-                image: productData.imageM
+                //image: productData.imageM
               }));
-         
+              setImage(productData.imageM)
                console.log("Producto cargado para modificar:", productData);  
         } else {
             handleChange(e)
@@ -179,16 +172,36 @@ const ProductForm = () => {
       };
 
 const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
-const handleImage = (e) => {
-    setImage(e.target.files[0])}
 
-// function previewImage() {        
-//     var reader = new FileReader();         
-//     reader.readAsDataURL(document.getElementById('image').files);         
-//     reader.onload = function (e) {             
-//         document.getElementById('uploadPreview').src = e.target.result;         
-//     };     
-// }
+const handleImage = (e) => {
+    setImage(e.target.files[0])
+        setErrors(validate({[image]:e.target.files[0]}))
+        previewImage()
+    }
+
+    function previewImage() {
+        var file = document.getElementById("image").files
+        if (file.length > 0) {
+            var fileReader = new FileReader()
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview").setAttribute("src", event.target.result)
+            }
+
+            fileReader.readAsDataURL(file[0])
+
+            const fileName = file.name;
+            const fileInput = document.getElementById("image");
+            fileInput.value = fileName;
+        }else {
+            // Si no hay imagen seleccionada, puedes mostrar una imagen predeterminada o limpiar la vista previa
+            document.getElementById("preview").setAttribute("src", {notavailable}); // Limpiar la vista previa
+            //document.getElementById("preview").setAttribute("src", "ruta_a_imagen_predeterminada"); // Mostrar imagen predeterminada
+
+            const fileInput = document.getElementById("image");
+            fileInput.value = "";
+          }
+    }
 
     return(
         <div className={style.main_wrapper}>
@@ -230,7 +243,7 @@ const handleImage = (e) => {
                 <div className={style.input_container} name="category" value={form.category} >
                     <label>Elige una categoría:</label>
                     {categories.map(c => (
-                        <><input type="radio" name="category" value={c} onChange={handleChange} />
+                        <><input type="radio" name="category" value={c} onChange={handleChange} checked={form.category === c} />
                         <label>{c}</label></>))}
                 </div>
                 <div className={style.error_form}>{errors.category && <p>{errors.category}</p>}</div>
@@ -241,9 +254,10 @@ const handleImage = (e) => {
                 </div>
                 <div className={style.error_form}>{errors.quantity && <p>{errors.quantity}</p>}</div>
                 {/* Image */}
-                <div  name="image" value={form.image}>
+                <div  name="image" value={image} >
                 <label>Seleccionar imagen:</label>
-                    <input type="file" id="image" name="image" onChange={handleImage}/>
+                    <input type="file" id="image" name="image"  onChange={handleImage}/>
+                    {image &&<img id="preview" width="150" height="150" src={image} />}
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}

@@ -33,9 +33,9 @@ function ProductCard({ products, page, limit  }) {
     //handleEdit(id);
   };
 
-  const handleStatusClick = (id, active) => {
+  const handleStatusClick = async (id, active) => {
+    await dispatch(logicalDeletionProducts(id));
     dispatch(getProducts(page, limit))
-    dispatch(logicalDeletionProducts(id));
   };
 
   

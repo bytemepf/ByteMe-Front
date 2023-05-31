@@ -100,6 +100,7 @@ const rootReducer = (state = initialState, action) => {
             
             case LOGICAL_DELETION:
                 const updatedUsers = { ...state.users };
+                console.log(updatedUsers)
                 delete updatedUsers[action.payload];
                 return {
                     ...state,
