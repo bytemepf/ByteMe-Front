@@ -1,0 +1,13 @@
+.contei{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 20px;
+}
+.detail{
+    display: flex;
+  flex-direction: column;
+  list-style-type: disc;
+}

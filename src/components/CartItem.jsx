@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../pages/ProductPage";
+import axios from "axios";
+//const token = localStorage.getItem('token');
+
 
 function CartItem() {
   const [quantity, setQuantity] = useState(1);
@@ -10,6 +13,7 @@ function CartItem() {
       setQuantity(quantity + 1);
     }
   };
+  //console.log(token)
 
   const decrease = () => {
     if (quantity > 1) {
@@ -33,6 +37,7 @@ function CartItem() {
   useEffect(() => {
     setCartItem(deleteItem);
   }, [deleteItem, setCartItem]);
+  console.log(cartItem)
 
   return (
     <>

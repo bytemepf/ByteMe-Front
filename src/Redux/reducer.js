@@ -8,7 +8,9 @@ import { GET_PRODUCTS,
     LOGIN_USER,
     LOGOUT_USER,
     GET_ALL_PRODUCTS, 
-    LOGICAL_DELETION} from "./actions"
+    LOGICAL_DELETION,
+    ADD_CART,
+    GET_ID_USER,GET_ORDER_BY_ID} from "./actions"
 
 let initialState = {
     products: {
@@ -21,7 +23,10 @@ let initialState = {
     details: [],
     filterByName: [],
     allProducts: [],
-    search: [] 
+    search: [] ,
+    cart: [],
+    orders:[],
+    iduser:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -37,7 +42,11 @@ const rootReducer = (state = initialState, action) => {
                     page: action.payload.page
                 }
             }
-            
+            case GET_ORDER_BY_ID:
+            return {
+                ...state,
+                orders: action.payload
+            }
         case GET_PRODUCTS_BY_ID:
             return {
                 ...state,
@@ -63,6 +72,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 users: [...state.users, action.payload]
             }
+            case GET_ID_USER:
+                return{
+                    ...state,
+                    iduser:  action.payload
+                }
 
         case GET_FILTERS:
             return {
@@ -103,6 +117,11 @@ const rootReducer = (state = initialState, action) => {
                 return {
                     ...state,
                     users: updatedUsers,
+                };
+            case ADD_CART:
+                return {
+                  ...state,
+                  cart: action.payload,
                 };
         default:
             return{

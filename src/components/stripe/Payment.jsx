@@ -104,12 +104,12 @@ const CheckoutForm = () => {
       console.log('no error')
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post("http://localhost:8080/api/checkout" , {
+        const { data } = await axios.post("https://byte-me-backend.onrender.com/api/checkout" , {
           id,
           quantity: 1,
           price: productPrice,
         } , { credentials: 'include' });
-    
+    console.log(data)
         Swal.fire({
           icon: 'success',
           title: 'Compra realizada con éxito',
