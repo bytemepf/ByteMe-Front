@@ -88,6 +88,36 @@
     font-size: 2rem;
   }
   
+  .comments{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 50%;
+    margin-left: 30%;
+    margin-top: 3rem;
+  }
+
+  .commentButton{
+    font-size: 1.5rem;
+  }
+
+  .commentInput{
+    font-size: 1.5rem;
+  }
+
+  .commentsList{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-decoration: none;
+    max-width: 50%;
+    margin-left: 30%;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-top: 3rem;
+  }
+
+
   .product-quant {
     display: flex;
     justify-content: space-between;

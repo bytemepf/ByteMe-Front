@@ -29,6 +29,7 @@ const AllUsers = () => {
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Role: {user.role}</p>
+                {/* <p>Token: {user.token}</p> */}
                 <p>Active: {user.active ? "Yes" : "No"}</p>
                 {user.active ? (
                   <button onClick={() => handleClick(user.id, user.active)} className={styles.deactivate}>

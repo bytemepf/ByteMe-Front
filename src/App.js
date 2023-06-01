@@ -10,6 +10,7 @@ import Monitores from "./components/Categories-pages/Monitores";
 import Gabinetes from "./components/Categories-pages/Gabinetes";
 import Sillas from "./components/Categories-pages/Sillas";
 import ProductPage, { CartContext } from "./pages/ProductPage";
+import { OrderContext } from "./components/postorder";
 import { useEffect, useState } from "react";
 import Login from "./pages/Loding/Index.js"; 
 import Landing from "../src/pages/Landign.jsx"
@@ -19,14 +20,20 @@ import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
 import SideBar from "./components/Dashboard/SideBar";
 import AllUsers from "./components/AllUsers/AllUsers";
+import Postorder from "./components/postorder"
+import OrderDetails from "./components/order/OrderDetails"
+import Reviews from "./pages/Reviews/Reviews";
+
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
-
+  const [orderId, setOrderId] = useState(null);
   const addToCart = (item) => {
     setCartItem([...cartItem, item]);
   };
-
+  const updateOrderId = (id) => {
+    setOrderId(id);
+  }
   // local storage
   useEffect(() => {
     const json = localStorage.getItem("cartItem");
@@ -67,6 +74,7 @@ function App() {
 
   return (
     <CartContext.Provider value={{ cartItem, addToCart, setCartItem }}>
+      <OrderContext.Provider value={{ orderId, updateOrderId,setOrderId }}>
       {hideNavbarRoutes.includes(location.pathname) ? null : <Navbar />}
       <Routes>
         <Route path="/admin/*" element={<AdminLayout />} />
@@ -75,6 +83,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/user" element={<User/>} />
+        <Route path="/reviews" element={<Reviews/>}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="categories" element={<Categories />} />
         <Route path="categories/all" element={<All />} />
@@ -85,7 +94,10 @@ function App() {
         <Route path="categories/all/gabinetes" element={<Gabinetes />} />
         <Route path="categories/all/sillas" element={<Sillas />} />
         <Route path="product/:id" element={<ProductPage />} />
+        <Route path="neworder" element={<Postorder /> }/>
+        <Route path="order" element={<OrderDetails /> }/>
       </Routes>
+      </OrderContext.Provider>
     </CartContext.Provider>
   );
 }

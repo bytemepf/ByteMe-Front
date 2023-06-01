@@ -11,9 +11,16 @@ export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
+export const ADD_CART = "ADD_CART";
+export const CART_BY_USER = "CART_BY_USER"
+export const ALL_ORDERS_BY_USER = "ALL_ORDERS_BY_USER"
+export const GET_ID_USER = "GET_ID_USER"
+export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID"
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
-export const URL_BASE = "https://byte-me-backend.onrender.com/api"
+
 //export const URL_BASE = "http://localhost:8080/api"
+export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 
 
 export const getProducts = (page, limit) => {
@@ -94,6 +101,7 @@ export const getFilters = (queryString) => {
       try {
         const response = await axios.post(`${URL_BASE}/auth/register`, user);
         const newUser = response.data;
+        console.log(newUser);
         dispatch({
           type: POST_USERS,
           payload: newUser,
@@ -124,3 +132,61 @@ export const getFilters = (queryString) => {
         })
       }
     }
+    export const iduser = (email) => {
+      return async function(dispatch){
+        const response = await axios.get(`${URL_BASE}/user/${email}`)
+        return dispatch ({type: GET_ID_USER, payload: response.data});
+      }
+
+    }
+    export const addCart = (user_id) => { //agregar al carrito
+      return async function(dispatch){
+        try{
+          const response = await axios.post(`${URL_BASE}/cart/${user_id}`)
+          console.log('producto recibido',response.data)
+          return dispatch ({type: ADD_CART, payload: response.data});
+        }
+        catch(error){
+          console.log(error.message)
+        }
+      }
+    }
+    
+    export function getcartUserById(user_id){
+      return async function(dispatch){
+        try{
+          const cart = await axios.get(`${URL_BASE}/cart/${user_id}`);
+          return dispatch({
+            type: CART_BY_USER, payload: cart.data
+          });
+        }catch(error){
+          console.log(error.message);
+        }
+      }
+    }
+    export const allOrdersByUser = (user_id) => {
+      return async function(dispatch){
+        const orders = await axios.get(`${URL_BASE}/cart/${user_id}`);
+          return dispatch({
+            type: ALL_ORDERS_BY_USER, payload: orders.data
+          })
+      }
+    }
+    export const setCurrentUser = (user) => {
+      return {
+        type: SET_CURRENT_USER,
+        payload: user,
+      };
+    };
+    export const getOrderById = () => {
+      return async function(dispatch) {
+          const response = await axios.get(`http://localhost:8080/api/order/pagar`);
+          console.log(response.data)
+          return dispatch({
+              type: GET_ORDER_BY_ID,
+              payload: response.data
+              
+          })
+      }
+  }
+
