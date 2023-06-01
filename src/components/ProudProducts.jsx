@@ -8,9 +8,9 @@ import { getProducts } from "../Redux/actions";
 function ProudProducts() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.data);
-  
+  console.log(products);
   const activeProducts = products.filter((product) => product.active === true);
-  
+  console.log(activeProducts);
   const [page, setPage] = useState(1) 
   const [limit, setLimit] = useState(12)
   const totalPages = useSelector((state) => state.products.totalPages); 
