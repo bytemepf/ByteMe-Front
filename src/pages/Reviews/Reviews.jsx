@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from './Reviews.module.css'
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const Reviews = () => {
+    const {user} = useAuth0();
     const [comments, setComments] = useState([]);
 
     const handleCommentSubmit = (event) => {
@@ -13,6 +16,12 @@ const Reviews = () => {
     };
     setComments((prevComments) => [...prevComments, newComment]);
     event.target.comment.value = "";
+    }
+
+    const handleCommentDelete = (id) => {
+        const updatedComments = comments.filter((comment) => comment.id !== id);
+        setComments(updatedComments);
+        localStorage.setItem("productComments", JSON.stringify(updatedComments));
     };
 
 useEffect(() => {
@@ -33,14 +42,25 @@ useEffect(() => {
             <form onSubmit={handleCommentSubmit}>
                 <label htmlFor="comment">Agregar comentario</label>
                 <input type="text" name="comment" id="comment" />
-                <button type="submit">Agregar</button>
+                <button type="submit" className={styles.addButton}>Agregar</button>
             </form>
         </div>
         
         <div className={styles.commentList}>
             <ul >
                 {comments?.map((comment) => (
-                    <li key={comment.id} className={styles.itemsList}>{comment.text}</li>
+                    <div key={comment.id} className={styles.commentBox}>
+                        {user.nickname === "bytemepf" ? (
+                            <div className={styles.commentContainer}>
+                                <li className={styles.itemsList}>{comment.text}</li>
+                                <button onClick={() => handleCommentDelete(comment.id)} className={styles.commentButton}>Eliminar</button>
+                            </div>
+                        ) : (
+                            <div className={styles.commentContainer}>
+                                <li className={styles.itemsList}>{comment.text}</li>
+                            </div>
+                        )}
+                    </div>
                 ))}
             </ul>
         </div>
