@@ -6,6 +6,7 @@ export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
 export const GET_USERS = "GET_USERS";
 export const POST_USERS = "POST_USERS";
 export const POST_PRODUCTS = "POST_PRODUCTS";
+export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
 export const GET_FILTERS = "GET_FILTERS";
 export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
@@ -65,6 +66,16 @@ export const postProducts = () => {
             payload: response.data
         })
     }
+}
+
+export const modifyProduct = (id, products) => {
+  return async function (dispatch){
+    const response = await axios.put(`${URL_BASE}/admin/products/${id}`, products);
+    const modifiedProduct = response.data;
+
+    dispatch({type: MODIFY_PRODUCT, payload: modifiedProduct});
+    
+  }
 }
 
 export const getFilters = (queryString) => {
@@ -136,3 +147,4 @@ export const getFilters = (queryString) => {
         })
       }
     }
+

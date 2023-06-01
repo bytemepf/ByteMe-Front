@@ -1,11 +1,9 @@
 import style from "./ProductForm.module.css"
 import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-//import { getAllCountries } from "../../Redux/actions";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getProductsById } from "../../Redux/actions";
 import notavailable from "../../img/notAvailableImage/notavailable.jpg"
+import { modifyProduct } from "../../Redux/actions";
 
 const numbersRegExp = /^[0-9]+$/
 const priceRegExp = /\d{1,3}[,\\.]?(\\d{1,2})?/
@@ -75,8 +73,8 @@ const ProductForm = () => {
     }, [form, image, setButton]);
     
     const [modify, setModify] = useState(false);
-    const showModify = () => {
-        setModify(!modify);
+    const showModify = async () => {
+        await setModify(!modify);
     };
 
     const handleChange = (e) => {
@@ -91,33 +89,10 @@ const ProductForm = () => {
     };
 
     const urlApi = `${process.env.REACT_APP_URL_BACK}`;
-
-    // const handleCreateSubmit = (e) => {
-    //     e.preventDefault();
-    //     const formData = new FormData()
-    //     formData.append("name", form.name)
-    //     formData.append("description", form.description)
-    //     formData.append("brand", form.brand)
-    //     formData.append("price", form.price)
-    //     formData.append("category", form.category)
-    //     formData.append("quantity", form.quantity)
-    //     formData.append("image", image)
-    //     axios
-    //     .post(`${urlApi}/admin/products`,formData, {
-    //         headers:{"Content-Type":"multipart/form-data"}
-    //     })
-    //     .then(showModify())
-    //     .catch(err => {
-    //         console.log(err.response.message);
-    //         alert(err);})
-    // };
     
     const location = useLocation();
     const isEditMode = location.state && location.state.isEditMode;
     const {id, name, description, brand, price, category, quantity, imageM} = location.state;
-    console.log(isEditMode)
-    console.log(id);
-    console.log(name)
 
     useEffect((e) => {
         if (isEditMode && location.state){
@@ -125,7 +100,7 @@ const ProductForm = () => {
                // Preenlazar el formulario con los datos del producto
                setForm((prevForm) => ({
                 ...prevForm,
-                //id: productData.id,
+                id: productData.id,
                 name: productData.name,
                 description: productData.description,
                 brand: productData.brand,
@@ -141,41 +116,31 @@ const ProductForm = () => {
         }
     }, [isEditMode,id, name, description, brand, price, category, quantity, imageM])
       
-     
-    //   if (isEditMode) {
-    //     handleModify(selectedProductId)
-    //   }
-
-    const handleModifySubmit = (e) => {
+  
+    const dispatch = useDispatch();
+    const handleModifySubmit = async (e) => {
         e.preventDefault();
-        axios
-          .put(`${urlApi}/admin/products/${form.id}`, form)
-          .then((response) => {
-            console.log("Producto modificado:", response.data);
-            // Restablecer el estado del formulario
-            setForm({
-              name: "",
-              description: "",
-              brand: "",
-              price: "",
-              category: "",
-              quantity: "",
-              image: "",
-            });
-            // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
-            showModify()
-          })
-          .catch((error) => {
-            console.log("Error al modificar el producto:", error.response.data);
-            // Manejar el error, mostrar una notificación de error, etc.
-          });
+        const formData = new FormData();
+        formData.append("name", form.name);
+        formData.append("description", form.description);
+        formData.append("brand", form.brand);
+        formData.append("price", form.price);
+        formData.append("category", form.category);
+        formData.append("quantity", form.quantity);
+        formData.append("image", image);
+            
+        console.log(formData, "formdataaaaaa");
+
+        await dispatch(modifyProduct(form.id, formData)); 
+        await showModify()
+        
       };
 
 const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
 
 const handleImage = (e) => {
     setImage(e.target.files[0])
-        setErrors(validate({[image]:e.target.files[0]}))
+        setErrors(validate(form, {[image]:e.target.files[0]}))
         previewImage()
     }
 

@@ -5,6 +5,7 @@ import { GET_PRODUCTS,
     POST_USERS, 
     GET_FILTERS,
     POST_PRODUCTS,
+    MODIFY_PRODUCT,
     LOGIN_USER,
     LOGOUT_USER,
     GET_ALL_PRODUCTS, 
@@ -54,6 +55,20 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 products: [...state.products, action.payload]
             }
+        case MODIFY_PRODUCT:
+            const modifiedProduct = action.payload;
+            const updatedModifiedProducts = state.products.map((products) => {
+                if (products.data.id === modifiedProduct.data.id) {
+                // Actualiza el producto si los ID coinciden
+                return modifiedProduct;
+                }
+        return products;
+      });
+
+      return {
+        ...state,
+        products: updatedProducts,
+      };
         case GET_USERS: 
             return{
                 ...state,
