@@ -15,7 +15,9 @@ const CheckoutForm = () => {
   const item = useSelector((state) => state.orders);
   const users = useSelector((state) => state.users);
   const products = useSelector((state) => state.allProducts)
+  
   const {user} = useAuth0();
+  
   const dispatch = useDispatch();
   const productPrice = item.total;
   //const productImg = {logo} //esto era la imagen de un product
@@ -101,14 +103,13 @@ const CheckoutForm = () => {
       setLoading(false);
     }
     if (!error) {
-      console.log('no error')
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post("http://localhost:8080/api/checkout" , {
+        const data = await axios.post("https://byte-me-backend.onrender.com/api/checkout" , {
           id,
           quantity: 1,
           price: productPrice,
-          email:user.email //solo eso?
+          email:user.email
         } , { credentials: 'include' });
     console.log(data)
         Swal.fire({
@@ -140,7 +141,7 @@ const CheckoutForm = () => {
 
 
   return (
-    <body className="body">
+    
       <div className="pay">
         <form className="checkout-form" onSubmit={handleSubmit}>
             <div className="checkout-image">
@@ -148,7 +149,7 @@ const CheckoutForm = () => {
             </div>
             <h3 className="checkout-form__price">Precio: {productPrice}$</h3>
             <input
-            classname="email"
+            className="email"
               type="email"
               placeholder="Email"
               value={email}
@@ -170,8 +171,6 @@ const CheckoutForm = () => {
           
           </form>
         </div>
-  
-    </body>
     
   );
 };

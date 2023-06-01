@@ -1,0 +1,52 @@
+.reviews{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    margin-left: 25%;
+    margin-top: 20rem;
+}
+
+.addButton{
+    background-color: #4D1F61;
+    color: white;
+    border: 1px solid #4D1F61;
+    cursor: pointer;
+    margin-left: 1rem;
+    padding: 0.5rem;
+}
+
+.commentList{
+    margin-top: 8rem;
+    font-size: 1.8rem;
+    margin-left: 12%;
+}
+
+.itemsList{
+    text-decoration: none;
+}
+
+
+.commentContainer{
+    background-color: #4D1F61;
+    margin-bottom: 1.2rem;
+    color: white;
+    border: 1px #4D1F61 solid;
+    border-radius: 10px;
+}
+
+.commentButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-width: 90%;
+    margin-left: 80%;
+    margin-bottom: 5rem;
+    background-color: #4D1F61;
+    color: white;
+    border: 1px solid #4D1F61;
+    font-size: 1.5rem;
+    padding: 1.1%;
+    cursor: pointer;
+}
