@@ -16,9 +16,11 @@ export const CART_BY_USER = "CART_BY_USER"
 export const ALL_ORDERS_BY_USER = "ALL_ORDERS_BY_USER"
 export const GET_ID_USER = "GET_ID_USER"
 export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID"
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
-export const URL_BASE = "https://byte-me-backend.onrender.com/api"
+
 //export const URL_BASE = "http://localhost:8080/api"
+export const URL_BASE = "https://byte-me-backend.onrender.com/api"
 
 
 export const getProducts = (page, limit) => {
@@ -99,6 +101,7 @@ export const getFilters = (queryString) => {
       try {
         const response = await axios.post(`${URL_BASE}/auth/register`, user);
         const newUser = response.data;
+        console.log(newUser);
         dispatch({
           type: POST_USERS,
           payload: newUser,
@@ -169,6 +172,12 @@ export const getFilters = (queryString) => {
           })
       }
     }
+    export const setCurrentUser = (user) => {
+      return {
+        type: SET_CURRENT_USER,
+        payload: user,
+      };
+    };
     export const getOrderById = () => {
       return async function(dispatch) {
           const response = await axios.get(`https://byte-me-backend.onrender.com/api/order/pagar`);
@@ -180,3 +189,4 @@ export const getFilters = (queryString) => {
           })
       }
   }
+

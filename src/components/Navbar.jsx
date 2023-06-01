@@ -56,6 +56,9 @@ function Navbar() {
           <Link onClick={() => setMobileNav(!mobileNav)} to="/user">
           Perfil
           </Link>
+          <Link onClick={() => setMobileNav(!mobileNav)} to="/reviews">
+          Opniones de Usuarios Byte Me
+          </Link>
           {user && user.nickname === "bytemepf" && (
                 <Link onClick={() => window.scrollTo(0, 0)} to="/admin">
                   Administrador
@@ -117,6 +120,12 @@ function Navbar() {
                 to="/user"
               >
                 Perfil
+              </Link>
+              <Link
+                onClick={() => window.scrollTo(0, 0)}
+                to="/reviews"
+              >
+                Opiniones
               </Link>
               <i
                 data-array-length={cartItem.length}

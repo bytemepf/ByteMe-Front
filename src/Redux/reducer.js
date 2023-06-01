@@ -10,7 +10,8 @@ import { GET_PRODUCTS,
     GET_ALL_PRODUCTS, 
     LOGICAL_DELETION,
     ADD_CART,
-    GET_ID_USER,GET_ORDER_BY_ID} from "./actions"
+    GET_ID_USER,GET_ORDER_BY_ID,
+       SET_CURRENT_USER} from "./actions"
 
 let initialState = {
     products: {
@@ -20,6 +21,7 @@ let initialState = {
         page: 1
     },
     users: [],
+    currentUser: null,
     details: [],
     filterByName: [],
     allProducts: [],
@@ -123,6 +125,12 @@ const rootReducer = (state = initialState, action) => {
                   ...state,
                   cart: action.payload,
                 };
+
+                case SET_CURRENT_USER:
+                    return {
+                        ...state,
+                        currentUser: action.payload,
+                    };
         default:
             return{
             ...state,
