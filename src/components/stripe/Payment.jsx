@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./payment.css";
 import Swal from 'sweetalert2';
 import { loadStripe } from "@stripe/stripe-js";
-
+import logo from "../../img/logo/logo.png"
 import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { getAllProducts, getUsers } from "../../Redux/actions";
@@ -12,15 +12,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 const stripePromise = loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
 
 const CheckoutForm = () => {
-  const item = useSelector((state) => state.details);
+  const item = useSelector((state) => state.orders);
   const users = useSelector((state) => state.users);
   const products = useSelector((state) => state.allProducts)
   
   const {user} = useAuth0();
   
   const dispatch = useDispatch();
-  const productPrice = item.price;
-  const productImg = item.image;
+  const productPrice = item.total;
+  //const productImg = {logo} //esto era la imagen de un product
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -109,11 +109,9 @@ const CheckoutForm = () => {
           id,
           quantity: 1,
           price: productPrice,
-          email: user.email
+          email:user.email
         } , { credentials: 'include' });
-
-        console.log(data);
-    
+    console.log(data)
         Swal.fire({
           icon: 'success',
           title: 'Compra realizada con éxito',
@@ -124,8 +122,8 @@ const CheckoutForm = () => {
       } catch (error) {
         Swal.fire({
           icon: 'error',
-          title: 'Algo salió mal...',
-          text: error.response.data,
+          title: 'Algo ha salido mal...',
+          text: error.response,
         });
       }
       setLoading(false);
@@ -147,7 +145,7 @@ const CheckoutForm = () => {
       <div className="pay">
         <form className="checkout-form" onSubmit={handleSubmit}>
             <div className="checkout-image">
-              <img src={productImg} alt="Not Image Found" />
+              <img src={logo} alt="Not Image Found" />
             </div>
             <h3 className="checkout-form__price">Precio: {productPrice}$</h3>
             <input
