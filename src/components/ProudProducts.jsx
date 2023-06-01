@@ -9,6 +9,8 @@ function ProudProducts() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.data);
   
+  const activeProducts = products.filter((product) => product.active === true);
+  
   const [page, setPage] = useState(1) 
   const [limit, setLimit] = useState(12)
   const totalPages = useSelector((state) => state.products.totalPages); 
@@ -41,7 +43,7 @@ function ProudProducts() {
           )}
         </ul>
         <div className="products-grid">
-          <ProductItem products={products} page={page} limit={limit}/>
+          <ProductItem activeProducts={activeProducts} page={page} limit={limit}/>
         </div>
       </div>
     </div>
