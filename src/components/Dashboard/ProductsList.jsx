@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../Redux/actions";
 
-const ProductsList = ({handleEdit}) => {
+const ProductsList = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products.data);
     
@@ -49,8 +49,8 @@ const ProductsList = ({handleEdit}) => {
               )
             )}
           </ul>
-          <div className="products-grid">
-            <ProductCard products={products} handleEdit={handleEdit}/>
+          <div>
+            <ProductCard products={products} page={page} limit={limit} />
           </div>
         </div>
       </div>

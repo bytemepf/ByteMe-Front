@@ -8,7 +8,9 @@ import { getProducts } from "../Redux/actions";
 function ProudProducts() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.data);
-  
+  console.log(products);
+  const activeProducts = products.filter((product) => product.active === true);
+  console.log(activeProducts);
   const [page, setPage] = useState(1) 
   const [limit, setLimit] = useState(12)
   const totalPages = useSelector((state) => state.products.totalPages); 
@@ -16,6 +18,7 @@ function ProudProducts() {
   
   const pagination = (page) => {
     setPage(page)
+    //dispatch(getProducts(page, limit));
   }
   
   useEffect(()=>{
@@ -26,7 +29,7 @@ function ProudProducts() {
     <div className="proud-container">
       <h2 className="container proud-h2">Productos</h2>
       <section>
-          <Filters page={page} limit={limit}/>
+          <Filters page={page} limit={limit} setPage={setPage} setLimit={setLimit}/>
       </section>
       <div className="container">
         <ul className="pagination">
@@ -40,7 +43,7 @@ function ProudProducts() {
           )}
         </ul>
         <div className="products-grid">
-          <ProductItem products={products} />
+          <ProductItem activeProducts={activeProducts} page={page} limit={limit}/>
         </div>
       </div>
     </div>

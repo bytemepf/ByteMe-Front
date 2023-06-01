@@ -6,11 +6,14 @@ export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
 export const GET_USERS = "GET_USERS";
 export const POST_USERS = "POST_USERS";
 export const POST_PRODUCTS = "POST_PRODUCTS";
+export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
 export const GET_FILTERS = "GET_FILTERS";
 export const LOGIN_USER ="LOGIN_USER";
 export const LOGOUT_USER="LOGOUT_USER";
 export const GET_ALL_PRODUCTS="GET_ALL_PRODUCTS";
 export const LOGICAL_DELETION = "LOGICAL_DELETION";
+export const LOGICAL_DELETION_PRODUCTS = "LOGICAL_DELETION_PRODUCTS";
+
 export const ADD_CART = "ADD_CART";
 export const CART_BY_USER = "CART_BY_USER"
 export const ALL_ORDERS_BY_USER = "ALL_ORDERS_BY_USER"
@@ -70,6 +73,16 @@ export const postProducts = () => {
             payload: response.data
         })
     }
+}
+
+export const modifyProduct = (id, products) => {
+  return async function (dispatch){
+    const response = await axios.put(`${URL_BASE}/admin/products/${id}`, products);
+    const modifiedProduct = response.data;
+
+    dispatch({type: MODIFY_PRODUCT, payload: modifiedProduct});
+    
+  }
 }
 
 export const getFilters = (queryString) => {
@@ -180,7 +193,7 @@ export const getFilters = (queryString) => {
     };
     export const getOrderById = () => {
       return async function(dispatch) {
-          const response = await axios.get(`http://localhost:8080/api/order/pagar`);
+          const response = await axios.get(`${URL_BASE}/order/pagar`);
           console.log(response.data)
           return dispatch({
               type: GET_ORDER_BY_ID,
@@ -189,4 +202,18 @@ export const getFilters = (queryString) => {
           })
       }
   }
+
+
+    export const logicalDeletionProducts = (id) => {
+      return async function (dispatch){
+        await axios.put(`${URL_BASE}/admin/products/active/${id}`);
+        dispatch({
+          type: LOGICAL_DELETION_PRODUCTS,
+          payload: id,
+        })
+      }
+    }
+
+
+
 
