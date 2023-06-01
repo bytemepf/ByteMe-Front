@@ -10,6 +10,7 @@ const OrderDetails = () => {
   const { orderId } = useContext(OrderContext);
   const dispatch = useDispatch();
   const ordeD = useSelector((state)=> state.orders);
+  
   useEffect(()=>{
     dispatch(getOrderById())
   }, [dispatch])
