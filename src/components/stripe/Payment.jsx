@@ -124,7 +124,7 @@ const CheckoutForm = () => {
       } catch (error) {
         Swal.fire({
           icon: 'error',
-          title: 'Algo ha salido mal...',
+          title: 'Algo salió mal...',
           text: error.response.data,
         });
       }
