@@ -5,10 +5,12 @@ import { GET_PRODUCTS,
     POST_USERS, 
     GET_FILTERS,
     POST_PRODUCTS,
+    MODIFY_PRODUCT,
     LOGIN_USER,
     LOGOUT_USER,
     GET_ALL_PRODUCTS, 
     LOGICAL_DELETION,
+    LOGICAL_DELETION_PRODUCTS,
     ADD_CART,
     GET_ID_USER,GET_ORDER_BY_ID,
        SET_CURRENT_USER} from "./actions"
@@ -64,6 +66,20 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 products: [...state.products, action.payload]
             }
+        case MODIFY_PRODUCT:
+            const modifiedProduct = action.payload;
+            const updatedModifiedProducts = state.products.map((products) => {
+                if (products.data.id === modifiedProduct.data.id) {
+                // Actualiza el producto si los ID coinciden
+                return modifiedProduct;
+                }
+        return products;
+      });
+
+      return {
+        ...state,
+        products: updatedProducts,
+      };
         case GET_USERS: 
             return{
                 ...state,
@@ -115,11 +131,23 @@ const rootReducer = (state = initialState, action) => {
             
             case LOGICAL_DELETION:
                 const updatedUsers = { ...state.users };
+                console.log(updatedUsers)
                 delete updatedUsers[action.payload];
                 return {
                     ...state,
                     users: updatedUsers,
                 };
+
+            case LOGICAL_DELETION_PRODUCTS: 
+                const updatedProducts = [ ...state.products.data];
+                console.log(updatedProducts);
+                delete updatedProducts[action.payload];
+                return {
+                    ...state,
+                    allProducts: updatedProducts
+                    } 
+                
+
             case ADD_CART:
                 return {
                   ...state,

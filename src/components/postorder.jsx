@@ -42,7 +42,7 @@ const Postorder = () => {
       productC: cartItem,
     };
 
-  await  axios.post(`http://localhost:8080/api/order/${email}`, data)
+  await  axios.post(`https://byte-me-backend.onrender.com/api/order/${email}`, data)
       .then(response => {
         const resp=  response.data
          updateOrderId(resp.order_id)

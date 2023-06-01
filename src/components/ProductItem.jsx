@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getProducts, getAllProducts } from "../Redux/actions";
 
-function ProductItem({ products }) {
+function ProductItem({ activeProducts }) {
   const dispatch = useDispatch();
   const filterByName = useSelector((state) => state.search)
 
@@ -13,7 +13,7 @@ function ProductItem({ products }) {
   // useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
   //   dispatch(getProducts());
   // }, [dispatch])
-
+console.log(activeProducts);
   return (
     <>
   {filteredItems.length !== 0 ? (
@@ -32,7 +32,7 @@ function ProductItem({ products }) {
           </div>
         ))
       ) : (
-        products.map((item) => (
+        activeProducts.map((item) => (
           <div className="product normal">
             <Link onClick={() => window.top(0, 0)} to={`/product/${item.id}`}>
               <div className="product-header">

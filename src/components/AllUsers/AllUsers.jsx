@@ -13,8 +13,8 @@ const AllUsers = () => {
 
   const usersList = Array.isArray(allUsers) ? allUsers : [allUsers];
 
-  const handleClick = (id, active) => {
-    dispatch(logicalDeletion(id));
+  const handleClick = async (id, active) => {
+    await dispatch(logicalDeletion(id));
     dispatch(getUsers())
   };
 

@@ -20,6 +20,7 @@ import ProductForm from "./components/Dashboard/ProductForm";
 import ProductsList from "./components/Dashboard/ProductsList";
 import SideBar from "./components/Dashboard/SideBar";
 import AllUsers from "./components/AllUsers/AllUsers";
+import EditProductForm from "./components/Dashboard/EditProductForm";
 import Postorder from "./components/postorder"
 import OrderDetails from "./components/order/OrderDetails"
 import Reviews from "./pages/Reviews/Reviews";
@@ -49,12 +50,15 @@ function App() {
   }, [cartItem]);
 
   const location = useLocation();
-  const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers"];
+  console.log(location)
+  const hideNavbarRoutes = ["/", "/login", "/register","/payment", "/user", "/admin", "/admin/add", "/admin/list", "/admin/allUsers", "/admin/edit"];
 
   function AdminLayout() {
     const [selectedProductId, setSelectedProductId] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
 
+// console.log(isEditMode)
+// console.log(selectedProductId);
     const handleEdit = (itemId) => {
       setSelectedProductId(itemId);
       setIsEditMode(true);
@@ -64,8 +68,9 @@ function App() {
       <div className="admin-layout">
         <SideBar />
         <Routes>
-          <Route exact path="/add" element={<ProductForm isEditMode={isEditMode} selectedProductId={selectedProductId}/>} />
-          <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit}/>} />
+          <Route exact path="/add" element={<ProductForm handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
+          <Route exact path="/list" element={<ProductsList  handleEdit={handleEdit} isEditMode={isEditMode} setIsEditMode={setIsEditMode} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId}/>} />
+          <Route exact path="/edit" element={<EditProductForm/>} />
           <Route exact path="/allUsers" element={ <AllUsers handleEdit={handleEdit}/>}/>
         </Routes>
       </div>

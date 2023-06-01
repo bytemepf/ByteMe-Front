@@ -1,11 +1,9 @@
 import style from "./ProductForm.module.css"
 import React, {useEffect, useState} from "react";
-import { useDispatch, useSelector } from "react-redux";
-//import { getAllCountries } from "../../Redux/actions";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getProductsById } from "../../Redux/actions";
 import notavailable from "../../img/notAvailableImage/notavailable.jpg"
+import { modifyProduct } from "../../Redux/actions";
 
 const numbersRegExp = /^[0-9]+$/
 const priceRegExp = /\d{1,3}[,\\.]?(\\d{1,2})?/
@@ -74,9 +72,9 @@ const ProductForm = () => {
         else setButton(true)
     }, [form, image, setButton]);
     
-    const [notify, setNotify] = useState(false);
-    const showNotify = () => {
-        setNotify(!notify);
+    const [modify, setModify] = useState(false);
+    const showModify = async () => {
+        await setModify(!modify);
     };
 
     const handleChange = (e) => {
@@ -91,93 +89,59 @@ const ProductForm = () => {
     };
 
     const urlApi = `${process.env.REACT_APP_URL_BACK}`;
-
-    const handleCreateSubmit = (e) => {
-        e.preventDefault();
-        const formData = new FormData()
-        formData.append("name", form.name)
-        formData.append("description", form.description)
-        formData.append("brand", form.brand)
-        formData.append("price", form.price)
-        formData.append("category", form.category)
-        formData.append("quantity", form.quantity)
-        formData.append("image", image)
-        axios
-        .post(`${urlApi}/admin/products`,formData, {
-            headers:{"Content-Type":"multipart/form-data"}
-        })
-        .then(showNotify())
-        .catch(err => {
-            console.log(err.response.message);
-            alert(err);})
-    };
     
-    // const location = useLocation();
-    // const isEditMode = location.state && location.state.isEditMode;
-    // const {id, name, description, brand, price, category, quantity, imageM} = location.state;
-    // console.log(isEditMode)
-    // console.log(id);
-    // console.log(name)
+    const location = useLocation();
+    const isEditMode = location.state && location.state.isEditMode;
+    const {id, name, description, brand, price, category, quantity, imageM} = location.state;
 
-    // useEffect((e) => {
-    //     if (isEditMode && location.state){
-    //     const productData = { isEditMode, id, name, description, brand, price, category, quantity, imageM }
-    //            // Preenlazar el formulario con los datos del producto
-    //            setForm((prevForm) => ({
-    //             ...prevForm,
-    //             //id: productData.id,
-    //             name: productData.name,
-    //             description: productData.description,
-    //             brand: productData.brand,
-    //             price: productData.price,
-    //             category: productData.category,
-    //             quantity: productData.quantity,
-    //             image: productData.imageM
-    //           }));
-         
-    //            console.log("Producto cargado para modificar:", productData);  
-    //     } else {
-    //         handleChange(e)
-    //     }
-    // }, [isEditMode,id, name, description, brand, price, category, quantity, imageM])
+    useEffect((e) => {
+        if (isEditMode && location.state){
+        const productData = { isEditMode, id, name, description, brand, price, category, quantity, imageM }
+               // Preenlazar el formulario con los datos del producto
+               setForm((prevForm) => ({
+                ...prevForm,
+                id: productData.id,
+                name: productData.name,
+                description: productData.description,
+                brand: productData.brand,
+                price: productData.price,
+                category: productData.category,
+                quantity: productData.quantity,
+                //image: productData.imageM
+              }));
+              setImage(productData.imageM)
+               console.log("Producto cargado para modificar:", productData);  
+        } else {
+            handleChange(e)
+        }
+    }, [isEditMode,id, name, description, brand, price, category, quantity, imageM])
       
-     
-    //   if (isEditMode) {
-    //     handleModify(selectedProductId)
-    //   }
-
-    // const handleModifySubmit = (e) => {
-    //     e.preventDefault();
-    //     axios
-    //       .put(`${urlApi}/admin/products/${form.id}`, form)
-    //       .then((response) => {
-    //         console.log("Producto modificado:", response.data);
-    //         // Restablecer el estado del formulario
-    //         setForm({
-    //           name: "",
-    //           description: "",
-    //           brand: "",
-    //           price: "",
-    //           category: "",
-    //           quantity: "",
-    //           image: "",
-    //         });
-    //         // Otras acciones necesarias, como mostrar una notificación de éxito, redirigir a otra página, etc.
-    //         showModify()
-    //       })
-    //       .catch((error) => {
-    //         console.log("Error al modificar el producto:", error.response.data);
-    //         // Manejar el error, mostrar una notificación de error, etc.
-    //       });
-    //   };
-
-    const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
-
-    const handleImage = (e) => {
-        setImage(e.target.files[0])
-        setErrors(validate({[image]:e.target.files[0]}))
-        previewImage()
+  
+    const dispatch = useDispatch();
+    const handleModifySubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("name", form.name);
+        formData.append("description", form.description);
+        formData.append("brand", form.brand);
+        formData.append("price", form.price);
+        formData.append("category", form.category);
+        formData.append("quantity", form.quantity);
+        formData.append("image", image);
             
+        console.log(formData, "formdataaaaaa");
+
+        await dispatch(modifyProduct(form.id, formData)); 
+        await showModify()
+        
+      };
+
+const categories = ["Teclados", "Ratones", "Gabinetes", "Monitores", "Sillas", "Audio", "Camaras", "Mandos"]
+
+const handleImage = (e) => {
+    setImage(e.target.files[0])
+        setErrors(validate(form, {[image]:e.target.files[0]}))
+        previewImage()
     }
 
     function previewImage() {
@@ -190,23 +154,30 @@ const ProductForm = () => {
             }
 
             fileReader.readAsDataURL(file[0])
+
+            const fileName = file.name;
+            const fileInput = document.getElementById("image");
+            fileInput.value = fileName;
         }else {
             // Si no hay imagen seleccionada, puedes mostrar una imagen predeterminada o limpiar la vista previa
             document.getElementById("preview").setAttribute("src", {notavailable}); // Limpiar la vista previa
             //document.getElementById("preview").setAttribute("src", "ruta_a_imagen_predeterminada"); // Mostrar imagen predeterminada
+
+            const fileInput = document.getElementById("image");
+            fileInput.value = "";
           }
     }
 
     return(
         <div className={style.main_wrapper}>
         <div
-            onAnimationEnd={() => setNotify(false)}
-            className={`notify ${notify ? "slide-in" : ""}`}>
-            <p>El producto ha sido creado exitosamente &nbsp; ✅</p>
+            onAnimationEnd={() => setModify(false)}
+            className={`notify ${modify ? "slide-in" : ""}`}>
+            <p>El producto ha sido modificado exitosamente &nbsp; ✅</p>
         </div>
         <div className={style.container}>
-            <form className={style.productForm} encType="multipart/form-data" onSubmit={handleCreateSubmit}> 
-            <h1>Crear producto</h1>
+            <form className={style.productForm} encType="multipart/form-data" onSubmit={handleModifySubmit}> 
+            <h1>Modificar producto</h1>
                 {/* id */}
                 <input type="hidden" name="id" value={form.id} />
                 {/* name */}
@@ -237,7 +208,7 @@ const ProductForm = () => {
                 <div className={style.input_container} name="category" value={form.category} >
                     <label>Elige una categoría:</label>
                     {categories.map(c => (
-                        <><input type="radio" name="category" value={c} onChange={handleChange} />
+                        <><input type="radio" name="category" value={c} onChange={handleChange} checked={form.category === c} />
                         <label>{c}</label></>))}
                 </div>
                 <div className={style.error_form}>{errors.category && <p>{errors.category}</p>}</div>
@@ -248,15 +219,15 @@ const ProductForm = () => {
                 </div>
                 <div className={style.error_form}>{errors.quantity && <p>{errors.quantity}</p>}</div>
                 {/* Image */}
-                <div  name="image" value={image}>
+                <div  name="image" value={image} >
                 <label>Seleccionar imagen:</label>
-                    <input type="file" id="image" name="image" onChange={handleImage}/>
-                    <img id="preview" width="150" height="150" src={notavailable} />
+                    <input type="file" id="image" name="image"  onChange={handleImage}/>
+                    {image &&<img id="preview" width="150" height="150" src={image} />}
                 </div>
                 <div className={style.error_form}>{errors.image && <p>{errors.image}</p>}</div>
                 {/* botones submit */}
-                    <button className={style.button_add} disabled={button} type="submit">
-                     CREAR</button>
+                    <button className={style.button_add} disabled={button} type="submit" >
+                    MODIFICAR</button>      
             </form>
         </div>
         </div>
