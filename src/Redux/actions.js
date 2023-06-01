@@ -171,7 +171,7 @@ export const getFilters = (queryString) => {
     }
     export const getOrderById = () => {
       return async function(dispatch) {
-          const response = await axios.get(`https://byte-me-backend.onrender.com/api/order/pagar`);
+          const response = await axios.get(`http://localhost:8080/api/order/pagar`);
           console.log(response.data)
           return dispatch({
               type: GET_ORDER_BY_ID,
