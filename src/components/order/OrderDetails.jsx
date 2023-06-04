@@ -30,9 +30,9 @@ console.log(ordeD)
       <p>País: {country}</p>
       <p>Teléfono: {phone}</p>
       <p>Total: {total}</p>
-     <Link to='/payment'>
-     <button>Pagar</button>
-     </Link> 
+      <Link to='/payment'>
+        <button className='detailButton'>Pagar</button>
+      </Link> 
     </div>
   );
 };
