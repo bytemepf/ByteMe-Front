@@ -6,9 +6,6 @@ import logo from "../../img/logo/logo.png"
 function SideBar() {
     return (
       <div className={style.maincontainer}>
-      <div>
-        <img src={logo} alt="Byte Me"  className={style.image}/>
-      </div>
       <div className={style.sidebarcontainer}>
         <Link to="/admin/add">Crear producto</Link>
         <Link to="/admin/list">Administrar productos</Link>

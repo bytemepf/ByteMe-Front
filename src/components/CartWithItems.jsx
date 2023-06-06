@@ -33,7 +33,7 @@ function CartWithItems() {
           <p className="total-price">{totalPrice + "$"}</p>
         </div>
         <div className="sub-left">
-          <Link to="/neworder">comprar</Link>
+          <Link to="/neworder">Comprar</Link>
         </div>
       </div>
     </>

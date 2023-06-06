@@ -47,7 +47,7 @@ function CartItem() {
             <img src={item.image} alt="product" />
           </div>
           <div className="cart-middle">
-            <p className="cart-name">{item.description}</p>
+            <p className="cart-name">{item.name}</p>
             <div className="cart-btns">
               <button onClick={decrease}>-</button>
               <p className="quantity">{quantity}</p>
