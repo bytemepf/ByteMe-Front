@@ -101,62 +101,62 @@ function Filters({page, limit, setPage, setLimit}) {
       }
 ////////////////////////////////////////////////////////////////////////////////////
 
-    return (
-        <>
-            <div class="container">
-                <button id="toggleButton" onClick={toggleContent} >FILTROS</button>
-                <div id="content" className="hidden">
-                    <div>
-                        <h2>Ordenar productos</h2>
-                        <div> 
-                            <select className="select" onChange={handleChange} name="alphabetic">
-                            <option disabled selected>Alfabéticamente</option>
-                            <option value= "a-z">A to Z</option>
-                            <option value= "z-a">Z to A</option>
-                            </select>
-                        </div>
-                        <div> 
-                            <select className="select" onChange={handleChange} name="numeric">
-                            <option disabled selected>Por precio</option>
-                            <option value= "asce">Menor precio</option>
-                            <option value= "desc">Mayor precio</option>
-                            </select>
-                        </div>
+return (
+    <>
+        <div class="containerFilter">
+            <button id="toggleButton" onClick={toggleContent} className="dropbtn">FILTROS</button>
+            <div id="content" className="hidden">
+                <div>
+                    <h2>Ordenar productos</h2>
+                    <div> 
+                        <select className="select" onChange={handleChange} name="alphabetic">
+                        <option disabled selected>Alfabéticamente</option>
+                        <option value= "a-z">A to Z</option>
+                        <option value= "z-a">Z to A</option>
+                        </select>
                     </div>
-                    <div className="container" value={filters.category} name="category" >
-                        <h2>Categoría</h2>
-                            {filterCategories.map(option => (
-                                <div>
-                                <input type="radio" name="category" value={option} id={option} onChange={handleChange}/>
-                                <label>{option}</label>
-                                </div>
-                            ))}
-                    </div>  
-                    <div className="container" value={filters.brand} name="brand" >    
-                        <h2>Marca</h2>
-                            {filterBrands.map(option => (
-                                <div>
-                                <input type="radio" name="brand" value={option} id={option} onChange={handleChange}/>
-                                <label>{option}</label>
-                                </div>
-                            ))}
-                    </div> 
-                    <div className="container"  >    
-                        <h2>Rango de precio</h2>
-                    <div>
-                        <input type="text" name="min" value={filters.min} placeholder="min" onChange={handleChange}/>
+                    <div> 
+                        <select className="select" onChange={handleChange} name="numeric">
+                        <option disabled selected>Por precio</option>
+                        <option value= "asce">Menor precio</option>
+                        <option value= "desc">Mayor precio</option>
+                        </select>
                     </div>
-                    <div>
-                        <input type="text" name="max" value={filters.max} placeholder="max" onChange={handleChange}/>
-                    </div>
-                    </div> 
-                    <button onClick={handleSubmit}>Aplicar filtros</button>
-                    <button onClick={handleClearFilters}>Limpiar filtros</button>
                 </div>
+                <div className="container" value={filters.category} name="category" >
+                    <h2>Categoría</h2>
+                        {filterCategories.map(option => (
+                            <div>
+                            <input type="radio" name="category" value={option} id={option} onChange={handleChange}/>
+                            <label>{option}</label>
+                            </div>
+                        ))}
+                </div>  
+                <div className="container" value={filters.brand} name="brand" >    
+                    <h2>Marca</h2>
+                        {filterBrands.map(option => (
+                            <div>
+                            <input type="radio" name="brand" value={option} id={option} onChange={handleChange}/>
+                            <label>{option}</label>
+                            </div>
+                        ))}
+                </div> 
+                <div className="container"  >    
+                    <h2>Rango de precio</h2>
+                <div>
+                    <input type="text" name="min" value={filters.min} placeholder="min" onChange={handleChange}/>
+                </div>
+                <div>
+                    <input type="text" name="max" value={filters.max} placeholder="max" onChange={handleChange}/>
+                </div>
+                </div> 
+                <button onClick={handleSubmit}>Aplicar filtros</button>
+                <button onClick={handleClearFilters}>Limpiar filtros</button>
             </div>
-            
-        </>
-    )
+        </div>
+        
+    </>
+)
 }
 
 export default Filters;

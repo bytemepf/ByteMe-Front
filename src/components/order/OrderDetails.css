@@ -1,13 +1,30 @@
 .contei{
-    position: relative;
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25rem;
+  margin-left: 2%;
+  margin-right: 2%;
+  font-size: 1.3rem;
 }
 .detail{
     display: flex;
   flex-direction: column;
   list-style-type: disc;
 }
+
+.detailButton{
+  padding: 5%;
+  background-color: #B028FF;
+  color: white;
+  font-size: 2rem;
+  border: 1px solid #B028FF;
+  cursor: pointer;
+}
+
+/* position: relative;
+display: grid;
+justify-content: center;
+align-items: center;
+height: 100vh;
+font-size: 20px; */

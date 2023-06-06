@@ -59,14 +59,15 @@ const Postorder = () => {
  // };
  
   return (
-    <div className='inputs'>
-      <input type="text" value={nameU} onChange={e => setnameU(e.target.value)} placeholder="nombre y apellido" />
-      <input type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="Dirección" />
-      <input type="text" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Teléfono" />
-      <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Ciudad" />
-      <input type="text" value={country} onChange={e => setCountry(e.target.value)} placeholder="País" />
- 
-      <button onClick={handlePostRequest}>countinuar compra</button>
+    <div className='postOrder'>
+      <div className='inputs'>
+      <input type="text" value={nameU} onChange={e => setnameU(e.target.value)} placeholder="nombre y apellido" className='items'/>
+      <input type="text" value={address} onChange={e => setAddress(e.target.value)} placeholder="Dirección" className='items'/>
+      <input type="text" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Teléfono" className='items'/>
+      <input type="text" value={city} onChange={e => setCity(e.target.value)} placeholder="Ciudad" className='items'/>
+      <input type="text" value={country} onChange={e => setCountry(e.target.value)} placeholder="País" className='items'/>
+      <button onClick={handlePostRequest} className='orderButton'>Continuar compra</button>
+    </div>
     </div>
   );
 };
