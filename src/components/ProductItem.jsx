@@ -7,8 +7,8 @@ import { getProducts, getAllProducts } from "../Redux/actions";
 function ProductItem({ activeProducts }) {
   const dispatch = useDispatch();
   const filterByName = useSelector((state) => state.search)
-
-  const filteredItems = Array.isArray(filterByName)? filterByName : [filterByName];
+  const activeProductsByName = filterByName.filter((product) => product.active === true);
+  const filteredItems = Array.isArray(activeProductsByName)? activeProductsByName : [activeProductsByName];
 
   // useEffect(()=>{     //* Agregué este useEffect para que apenas se monte el componente traiga todos los productos
   //   dispatch(getProducts());
