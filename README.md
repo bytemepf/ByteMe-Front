@@ -1,12 +1,21 @@
-<div align='center'><img src='https://user-images.githubusercontent.com/105128267/224688338-8f1f28b7-029b-4ed7-a567-86de0c44ff42.png'/></div>
+<div align='center'><img src='https://i.ibb.co/Ct6qwgK/logo.png'/></div>
 
 <h2>Sobre el proyecto</h2>
 
-<p>Este es un sitio web de comercio electrónico minimalista creado con React y CSS. Este sitio web cuenta con un diseño moderno e intuitivo, con una navegación fácil de usar y un 7 experiencia de compra sencilla que pone el foco en los productos.</p>
+<p>Tienda online de productos informáticos que incluye landing page, búsqueda por nombre, filtrados combinados, ordenamientos, formulario para crear productos, autenticación de terceros, notificaciones vía mail, paginado, dashboard de administrador para hacer gestión y borrado lógico tanto de productos como de usuarios, pasarela de pagos, reviews, localStorage, Cloudinary.</p>
+<p>Desarrollado como proyecto final para el bootcamp de Henry. Bajo la metodología SCRUM, por un grupo de 4 personas.</p>
+👉 Live Demo: <a href='https://byte-me-front.vercel.app/'>ByteMe Demo</a>
 
-👉 Live Demo: <a href='https://minimalist-e-commerce-main.vercel.app/'>Ecommerce Demo</a>
-
-<h3>construido con:</h3>
+<h3>Construído con:</h3>
 
 » CSS <br>
 » React JS
+» Redux.js
+» Node.js
+» Express.js
+» SQL
+» PostgreSQL
+» Stripe
+» Auth0
+» Cloudinary
+» Nodemailer
