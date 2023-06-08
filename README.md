@@ -9,13 +9,13 @@
 <h3>Construído con:</h3>
 
 » CSS <br>
-» React JS
-» Redux.js
-» Node.js
-» Express.js
-» SQL
-» PostgreSQL
-» Stripe
-» Auth0
-» Cloudinary
-» Nodemailer
+» React JS<br>
+» Redux.js<br>
+» Node.js<br>
+» Express.js<br>
+» SQL<br>
+» PostgreSQL<br>
+» Stripe<br>
+» Auth0<br>
+» Cloudinary<br>
+» Nodemailer<br>
